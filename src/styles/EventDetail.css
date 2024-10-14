@@ -1,0 +1,22 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+  
+  /* body {
+    background-color:transparent;
+
+  } */
+  
+.event{
+    width:100%;
+    height:100vh;
+}
+#detailImage{
+    /* background-image: url("https://securities.koreainvestment.com/fundapp/appsupport/AppSupportController.jsp?cmd=noticeDetail&type=event&num=1081"); */
+    position : absolute;
+    width:100vw;
+    height:auto;
+    display: block;
+    object-fit: contain;
+}
