@@ -15,6 +15,76 @@ body, html {
     background-color: white;
     padding: 0 10px;
   }
+
+  #benefitBg{  
+    position : relative;
+    width :100%;
+    height: calc(100vh + 120px);
+    padding-top : 20;
+    padding-bottom : 20;
+    background-image: url("../img_bankis_benefit_bg.png");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+  }
+
+  /* #btnGroup{
+    position : relative;
+    width : 100%;
+    height: calc(100vh + 120px);
+    padding-top : 20;
+    padding-bottom : 20;
+  } */
+
+  button.btn1 {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 37%;
+    left : 6.8%;
+    width: 86.5%;
+    height: 5%;
+  }
+
+  button.btn2 {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 42.5%;
+    left : 6.8%;
+    width: 86.5%;
+    height: 5%;
+  }
+  button.btn3 {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 62.3%;
+    left : 6.8%;
+    width: 86.5%;
+    height: 5%;
+  }
+  button.btn4 {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 67.8%;
+    left : 6.8%;
+    width: 86.5%;
+    height: 5%;
+  }
+  button.btn5 {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 88.6%;
+    left : 6.8%;
+    width: 86.5%;
+    height: 5%;
+    font-size: 17px;
+    font-weight:350;
+    color :rgb(16, 16, 16);
+  }
   
   #naviLogo {
     width: 24px;
