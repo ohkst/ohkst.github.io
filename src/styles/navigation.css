@@ -1,0 +1,27 @@
+
+/* NAVIGATION */
+#naviHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+  background-color: white;
+  padding: 0 10px;
+}
+
+.imgNaviBack {
+  width: 24px;
+  height: 24px;
+  margin-left: 8;
+  margin-right: 12px;
+}
+
+#brand {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 700;
+}
+#brand a {
+  color: black;
+  text-decoration: none;
+}

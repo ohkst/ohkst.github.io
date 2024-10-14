@@ -1,0 +1,87 @@
+
+.filterWrap {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  padding-left: 24px;
+  padding-right: 24px;
+  background-color: #eeeeee;
+}
+
+.filterTab {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-right: 18px;
+  border: 1px solid #fff;
+  border-color: lightgray;
+  border-radius: 16px;
+  height: 32px;
+  padding-left: 12px;
+  padding-right: 8px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.filterTab.active {
+  border-color: black;
+}
+
+.filterTab.hover {
+  background-color: lightgray;
+}
+
+.popover {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box; /*너비를 넘지않도록*/
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+}
+
+.overlay {
+  position: fixed;
+  top: 150px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.overlayContent {
+    display: flex;
+    background-color: white;
+    padding: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filterItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc((100% / 3) - 8px);
+  height: 38px;
+  border: 1px solid #fff;
+  border-color: lightgray;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+filterItem 간격이 각각 8이고 싶어
+
+#filterArrowDown {
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+}
