@@ -1,0 +1,71 @@
+/* TAB */
+.tabHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  background-color: white;
+}
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.tab {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 50px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  position: relative;
+}
+
+.deactive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 50px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  position: relative;
+}
+
+#eventTab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 50px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  position: relative;
+}
+
+.active.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0; /* 하단에 위치 */
+  left: 0;
+  width: 100%; /* 너비를 탭 전체에 맞춤 */
+  height: 2px; /* 두께 설정 */
+  background-color: black; /* 검정색 라인 */
+}
+
+.active.hover {
+  background-color: lightgray;
+}
