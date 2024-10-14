@@ -7,7 +7,7 @@ import EventDetail from './pages/EventDetail';
 function App() {
     return (
         <Router>
-            <div>
+            <div className="windowFrame">
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Events />} />
