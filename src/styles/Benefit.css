@@ -28,6 +28,7 @@ body, html {
     background-size: cover;
   }
 
+<<<<<<< HEAD
   /* #btnGroup{
     position : relative;
     width : 100%;
@@ -81,6 +82,74 @@ body, html {
     left : 6.8%;
     width: 86.5%;
     height: 5%;
+=======
+  .btnGroup{
+    margin-left: 20px;
+    border-radius: 5px;
+    border-color: darkgrey;
+    font-size: 17px;
+    font-weight:350;
+    color :rgb(16, 16, 16);
+  }
+
+  button.btn1 {
+    background-color: white;
+    position: absolute;
+    top: 37%;
+    width: 90%;
+    height: 5%;
+    border-radius: 5px;
+    border-color: darkgrey;
+    font-size: 17px;
+    font-weight:350;
+    color :rgb(16, 16, 16);
+  }
+
+  button.btn2 {
+    background-color: white;
+    position: absolute;
+    top: 42.5%;
+    width: 90%;
+    height: 5%;
+    border-radius: 5px;
+    border-color: darkgrey;
+    font-size: 17px;
+    font-weight:350;
+    color :rgb(16, 16, 16);
+  }
+  button.btn3 {
+    background-color: white;
+    position: absolute;
+    top: 62.3%;
+    width: 90%;
+    height: 5%;
+    border-radius: 5px;
+    border-color: darkgrey;
+    font-size: 17px;
+    font-weight:350;
+    color :rgb(16, 16, 16);
+  }
+  button.btn4 {
+    background-color: white;
+    position: absolute;
+    top: 67.8%;
+    width: 90%;
+    height: 5%;
+    border-radius: 5px;
+    border-color: darkgrey;
+    font-size: 17px;
+    font-weight:350;
+    color :rgb(16, 16, 16);
+  }
+  button.btn5 {
+    background-color: white;
+    position: absolute;
+    top: 88.6%;
+    width: 90%;
+    height: 5%;
+    border-radius: 5px;
+    border-color: darkgrey;
+>>>>>>> 2ce396a511158259f8457f94dde75272282b8883
     font-size: 17px;
     font-weight:350;
     color :rgb(16, 16, 16);
