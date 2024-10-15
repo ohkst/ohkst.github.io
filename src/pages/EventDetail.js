@@ -1,25 +1,54 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import '../styles/EventDetail.css';
+import EventContent from './EventContent';
+import EventRegister from './EventRegister';
 
 const eventDetails = {
-    1: { title: "$30 신청 혜택", description: "신청하면 즉시 $30 지급되는 이벤트입니다.", dateRange: "2024.09.27 ~ 2024.12.31" },
-    2: { title: "해외주식 거래", description: "매주 해외주식 거래를 통해 선물을 받을 수 있습니다.", dateRange: "2024.10.07 ~ 2024.11.15" },
-    3: { title: "공모주 골든위크", description: "10월 골든위크 기간 중 공모주 청약을 확인하세요.", dateRange: "2024.10.01 ~ 2024.10.31" }
+    1: { title: "Bankis 해외주식 신규 $30 이벤트", dateRange: "2024.09.27 ~ 2024.12.31", imgName : "img_bankis_ff_30dollar_2410" },
+    2: { title: "해외주식 거래", dateRange: "2024.10.07 ~ 2024.11.15", imgName : "23161753img_fs_exchange_plus_event_2408" },
+    3: { title: "BanKIS 계좌개설 이벤트", dateRange: "2024.10.01 ~ 2024.12.31", imgName : "img_bankis_direct_event_2212" }
 };
 
 function EventDetail() {
     const { id } = useParams();
     const event = eventDetails[id];
 
+    const [activeTab, setActiveTab] = useState('contents');
     if (!event) {
         return <p>해당 이벤트를 찾을 수 없습니다.</p>;
     }
 
     return (
         <div className="event-detail">
-            <h2>{event.title}</h2>
-            <p>{event.description}</p>
-            <p>{event.dateRange}</p>
+            <h2 id = "eventTitle">{event.title}</h2>
+            <p id = "dateRange">{event.dateRange}</p>
+
+            <div className="tabHeader">
+                <div className="wrap">
+                    <div className="tab">
+                        <span 
+                            className={activeTab === 'contents' ? 'active' : 'deactive'} 
+                            onClick={() => setActiveTab('contents')}
+                        >
+                            이벤트 내용보기
+                        </span> 
+                    </div>
+                    <div id ="contentsTab">{activeTab === 'contents' && <EventContent />}</div>
+                    
+                    <div className="tab">
+                        <span 
+                            className={activeTab === 'register' ? 'active' : 'deactive'} 
+                            onClick={() => setActiveTab('register')}
+                        >
+                            이벤트 참여하기
+                        </span>
+                    </div>
+                    <div id ="registerTab">{activeTab === 'register' && <EventRegister />}</div>
+                </div>
+            </div>
+
         </div>
     );
 }

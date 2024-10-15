@@ -1,6 +1,6 @@
 
 .filterWrap {
-  display: flex;
+  display : flex;
   align-items: center;
   text-align: center;
   width: 100%;
@@ -78,7 +78,7 @@
   box-sizing: border-box;
 }
 
-filterItem 간격이 각각 8이고 싶어
+/* filterItem 간격이 각각 8이고 싶어 */
 
 #filterArrowDown {
   width: 20px;
