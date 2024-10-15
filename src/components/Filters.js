@@ -42,7 +42,7 @@ function Filters({ activeTab, setActiveTab }) {
       {overlayVisible && (
         <div className="overlay" onClick={handleOverlayClick}>
           <div className="overlayContent" onClick={(e) => e.stopPropagation()}>
-            { (activeFilter === 'type' ? filterTypes : filterAvalable).map((option, index) => (
+          { (activeFilter === 'type' ? filterTypes : filterAvalable).map((option, index) => (
                 <div key={index} className="filterItem">{option}</div>
                 // {/* 원하는 필터 옵션들을 추가하세요 */}
             ))}

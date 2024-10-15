@@ -2,32 +2,14 @@ body, html {
     margin: 0;
     padding: 0;
 }
-<<<<<<< HEAD
-  
-  /* body {
-    background-color:transparent;
-
-  } */
-  
-=======
 #eventTitle, #dateRange{
   padding: 0 10px;
 }
 
->>>>>>> 2ce396a511158259f8457f94dde75272282b8883
 .event{
     width:100%;
     height:100vh;
 }
-<<<<<<< HEAD
-#detailImage{
-    /* background-image: url("https://securities.koreainvestment.com/fundapp/appsupport/AppSupportController.jsp?cmd=noticeDetail&type=event&num=1081"); */
-    position : absolute;
-    width:100vw;
-    height:auto;
-    display: block;
-    object-fit: contain;
-=======
 
 .tabHeader{
   width: 100%;
@@ -40,5 +22,4 @@ body, html {
   height:auto;
   display: block;
   object-fit: contain;
->>>>>>> 2ce396a511158259f8457f94dde75272282b8883
 }
