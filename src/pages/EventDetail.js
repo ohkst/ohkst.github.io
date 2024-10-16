@@ -6,15 +6,15 @@ import EventContent from './EventContent';
 import EventRegister from './EventRegister';
 
 const eventDetails = {
-    1: { title: "Bankis 해외주식 신규 $30 이벤트", dateRange: "2024.09.27 ~ 2024.12.31", imgName : "img_bankis_ff_30dollar_2410" },
-    2: { title: "해외주식 거래", dateRange: "2024.10.07 ~ 2024.11.15", imgName : "23161753img_fs_exchange_plus_event_2408" },
-    3: { title: "BanKIS 계좌개설 이벤트", dateRange: "2024.10.01 ~ 2024.12.31", imgName : "img_bankis_direct_event_2212" }
+    1: { title: "Bankis 해외주식 신규 $30 이벤트", dateRange: "2024.09.27 ~ 2024.12.31" },
+    2: { title: "해외주식 거래", dateRange: "2024.10.07 ~ 2024.11.15" },
+    3: { title: "BanKIS 계좌개설 이벤트", dateRange: "2024.10.01 ~ 2024.12.31" }
 };
 
 function EventDetail() {    
     const { id } = useParams();
     const event = eventDetails[id];
-    const imageUrl = "https://file.truefriend.com/updata/namo/"+eventDetails[id].imgName+".png"
+
     const tabs = [
         { id: 'contents', title: '이벤트 내용보기' },
         { id: 'register', title: '이벤트 참여하기' },
@@ -29,7 +29,7 @@ function EventDetail() {
         <div className="event-detail">
             <h2 id = "eventTitle">{event.title}</h2>
             <p id = "dateRange">{event.dateRange}</p>
-
+            <span class="shareButton">공유하기 </span>
             <div className="tabHeader">
                 <div className="wrap">
                     <div>
@@ -37,7 +37,6 @@ function EventDetail() {
                         {activeTab === 'contents' && <EventContent />}
                         {activeTab === 'register' && <EventRegister/>}
                     </div>
-                    <div id ="registerTab">{activeTab === 'register' && <EventRegister />}</div>
                 </div>
             </div>
         </div>
