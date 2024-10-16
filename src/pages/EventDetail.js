@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/EventDetail.css';
+import Tabs from '../components/Tabs';
 import EventContent from './EventContent';
 import EventRegister from './EventRegister';
 
@@ -10,12 +11,16 @@ const eventDetails = {
     3: { title: "BanKIS 계좌개설 이벤트", dateRange: "2024.10.01 ~ 2024.12.31", imgName : "img_bankis_direct_event_2212" }
 };
 
-function EventDetail() {
+function EventDetail() {    
     const { id } = useParams();
     const event = eventDetails[id];
     const imageUrl = "https://file.truefriend.com/updata/namo/"+eventDetails[id].imgName+".png"
-
+    const tabs = [
+        { id: 'contents', title: '이벤트 내용보기' },
+        { id: 'register', title: '이벤트 참여하기' },
+    ];
     const [activeTab, setActiveTab] = useState('contents');
+
     if (!event) {
         return <p>해당 이벤트를 찾을 수 없습니다.</p>;
     }
@@ -27,23 +32,10 @@ function EventDetail() {
 
             <div className="tabHeader">
                 <div className="wrap">
-                    <div className="tab">
-                        <span 
-                            className={activeTab === 'contents' ? 'active' : 'deactive'} 
-                            onClick={() => setActiveTab('contents')}
-                        >
-                            이벤트 내용보기
-                        </span> 
-                    </div>
-                    <div id ="contentsTab">{activeTab === 'contents' && <EventContent />}</div>
-                    
-                    <div className="tab">
-                        <span 
-                            className={activeTab === 'register' ? 'active' : 'deactive'} 
-                            onClick={() => setActiveTab('register')}
-                        >
-                            이벤트 참여하기
-                        </span>
+                    <div>
+                        <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+                        {activeTab === 'contents' && <EventContent />}
+                        {activeTab === 'register' && <EventRegister/>}
                     </div>
                     <div id ="registerTab">{activeTab === 'register' && <EventRegister />}</div>
                 </div>
