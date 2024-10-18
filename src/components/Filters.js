@@ -29,7 +29,7 @@ function Filters({ activeTab, setActiveTab }) {
   };
 
   return (
-    <div class="filterWrap">
+    <div className="filterWrap">
       <span className="filterTab" onClick={() => handleFilterClick('type')}>
         유형
         <img id="filterArrowDown" alt="" src={downArrow} />

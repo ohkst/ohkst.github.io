@@ -5,15 +5,15 @@ import EventContent from './EventContent';
 import EventRegister from './EventRegister';
 
 const eventDetails = {
-    1: { title: "Bankis 해외주식 신규 $30 이벤트", dateRange: "2024.09.27 ~ 2024.12.31", imgName : "img_bankis_ff_30dollar_2410" },
-    2: { title: "해외주식 거래", dateRange: "2024.10.07 ~ 2024.11.15", imgName : "23161753img_fs_exchange_plus_event_2408" },
-    3: { title: "BanKIS 계좌개설 이벤트", dateRange: "2024.10.01 ~ 2024.12.31", imgName : "img_bankis_direct_event_2212" }
+    0: { title: "00해외주식 거래", dateRange: "2024.10.07 ~ 2024.11.15"},
+    1: { title: "Bankis 해외주식 신규 $30 이벤트", dateRange: "2024.09.27 ~ 2024.12.31"},
+    2: { title: "해외주식 거래", dateRange: "2024.10.07 ~ 2024.11.15"},
+    3: { title: "BanKIS 계좌개설 이벤트", dateRange: "2024.10.01 ~ 2024.12.31"}
 };
 
 function EventDetail() {
     const { id } = useParams();
     const event = eventDetails[id];
-    const imageUrl = "https://file.truefriend.com/updata/namo/"+eventDetails[id].imgName+".png"
 
     const [activeTab, setActiveTab] = useState('contents');
     if (!event) {
