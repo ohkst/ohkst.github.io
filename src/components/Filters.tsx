@@ -2,9 +2,14 @@ import React, { useState } from "react";
 
 import downArrow from "../images/ic_arrow_down_20.png";
 
-function Filters({ activeTab, setActiveTab }) {
+interface FiltersProps {
+  activeTab: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Filters({ activeTab, setActiveTab }: FiltersProps) {
   const [overlayVisible, setOverlayVisible] = useState(false);
-  const [activeFilter, setActiveFilter] = useState(null);
+  const [activeFilter, setActiveFilter] = useState<string|null>(null);
 
   const filterTypes = [
     "전체",
@@ -19,7 +24,7 @@ function Filters({ activeTab, setActiveTab }) {
     "전체",
   ];
 
-  const handleFilterClick = (filterType) => {
+  const handleFilterClick = (filterType: string) => {
     setActiveFilter(filterType);
     setOverlayVisible(!overlayVisible);
   };

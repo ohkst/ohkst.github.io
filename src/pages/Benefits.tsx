@@ -4,7 +4,7 @@ import '../styles/Benefit.css';
 
 function Benefits() {
     const navigate = useNavigate();
-    const handleClick = id =>{
+    const handleClick = (id: string) =>{
         navigate('/event/'+id);
     };
 

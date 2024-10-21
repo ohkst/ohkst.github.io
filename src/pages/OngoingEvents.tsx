@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from "react";
-import EventCard from "../components/EventCard";
+import EventCard, { EventCardProps } from "../components/EventCard";
 
-import { getData, postData, putData, deleteData } from '../API/api';
-import { TestPostRequestData } from '../API/EventModel'
+import { getData, postData, putData, deleteData } from "../API/api";
+import { TestPostRequestData } from "../API/EventModel";
 
 const APIEndPoint = {
-    GetTest: 'posts',
-    PostTest: 'posts'
-}
+  GetTest: "posts",
+  PostTest: "posts",
+};
+Object.freeze(APIEndPoint);
 
 async function fetchData() {
-    try {
-        const data = await getData(APIEndPoint.GetTest);
-        console.log(data);
-    } catch (error) {
-        console.error("데이터 가져오기 실패", error);
-    }
+  try {
+    const data = await getData(APIEndPoint.GetTest);
+    console.log(data);
+  } catch (error) {
+    console.error("데이터 가져오기 실패", error);
+  }
 }
 
 async function postMessageData() {
-    try {
-        const requestParam: TestPostRequestData = { key: "safdasdf", title: "asdfasdfasdf", value: "asdfasdfsdf" };
-        const data = await postData(APIEndPoint.PostTest, requestParam);
-        console.log(data);
-    } catch (error) {
-        console.error("데이터 가져오기 실패", error);
-    }
+  try {
+    const requestParam: TestPostRequestData = { key: 1, title: "2", value: 3 };
+    const data = await postData(APIEndPoint.PostTest, requestParam);
+    console.log(data);
+  } catch (error) {
+    console.error("데이터 가져오기 실패", error);
+  }
 }
 
 function OngoingEvents() {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchImageSources = async () => {
@@ -43,7 +44,7 @@ function OngoingEvents() {
 
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, "text/html");
-        const images = doc.querySelectorAll(".event_img img");
+        const images = doc.querySelectorAll<HTMLImageElement>(".event_img img");
         const imageSources = Array.from(images).map((img) => img.src);
 
         setImages(imageSources);
@@ -60,11 +61,11 @@ function OngoingEvents() {
 
   return (
     <div className="events">
-      {images.map((event, index) => (
-        <EventCard key={index} id={index} imagePath={event} />
-      ))}
+      {images.map((event, index) => {
+        const props: EventCardProps = { id: index, imagePath: event };
+        return <EventCard key={index} {...props} />
+      })}
     </div>
   );
 }
-
 export default OngoingEvents;

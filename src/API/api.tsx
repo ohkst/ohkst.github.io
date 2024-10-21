@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TestPostRequestData } from '../API/EventModel'
+import { TestPostRequestData } from './EventModel'
 
 const BASE_URL = "https://jsonplaceholder.typicode.com";
 
@@ -11,7 +11,7 @@ const api = axios.create({
 });
 
 // GET
-export async function getData(endpoint) {
+export async function getData(endpoint: string) {
     try {
         const response = await api.get(endpoint);
         return response.data;
@@ -23,7 +23,7 @@ export async function getData(endpoint) {
 
 
 // POST
-export async function postData(endpoint, payload: TestPostRequestData) {
+export async function postData(endpoint: string, payload: TestPostRequestData) {
     try {
         const response = await api.post(endpoint, payload);
         return response.data;
@@ -34,7 +34,7 @@ export async function postData(endpoint, payload: TestPostRequestData) {
 }
 
 // PUT
-export async function putData(endpoint, payload) {
+export async function putData(endpoint: string, payload: TestPostRequestData) {
     try {
         const response = await api.put(endpoint, payload);
         return response.data;
@@ -45,7 +45,7 @@ export async function putData(endpoint, payload) {
 }
 
 // DELETE
-export async function deleteData(endpoint) {
+export async function deleteData(endpoint: string) {
     try {
         const response = await api.delete(endpoint);
         return response.status === 204;
