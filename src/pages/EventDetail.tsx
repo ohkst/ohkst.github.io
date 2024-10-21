@@ -4,7 +4,7 @@ import '../styles/EventDetail.css';
 import EventContent from './EventContent';
 import EventRegister from './EventRegister';
 
-const eventDetails = {
+const eventDetails: Record<number, {title: string, dateRange: string}> = {
     0: { title: "00해외주식 거래", dateRange: "2024.10.07 ~ 2024.11.15"},
     1: { title: "Bankis 해외주식 신규 $30 이벤트", dateRange: "2024.09.27 ~ 2024.12.31"},
     2: { title: "해외주식 거래", dateRange: "2024.10.07 ~ 2024.11.15"},
@@ -13,7 +13,8 @@ const eventDetails = {
 
 function EventDetail() {
     const { id } = useParams();
-    const event = eventDetails[id];
+    const index = parseInt(id || '0', 10);
+    const event = eventDetails[index];
 
     const [activeTab, setActiveTab] = useState('contents');
     if (!event) {

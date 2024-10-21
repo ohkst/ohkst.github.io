@@ -5,12 +5,12 @@ import OngoingEvents from './OngoingEvents';
 import Benefits from './Benefits';
 
 function Events() {
-    const [activeTab, setActiveTab] = useState('ongoing');
+    const [activeTab, setActiveTab] = useState<string>('ongoing');
 
     return (
         <div>
             <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-            {activeTab !== 'benefits' && <Filters />}
+            {activeTab !== 'benefits' && <Filters activeTab='' setActiveTab={setActiveTab} />}
             {activeTab === 'ongoing' && <OngoingEvents />}
             {activeTab === 'benefits' && <Benefits />}
         </div>

@@ -1,6 +1,11 @@
 import React from 'react';
 
-function Tabs({ activeTab, setActiveTab }) {
+interface TabsProps {
+    activeTab: string;
+    setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  }
+
+function Tabs({ activeTab, setActiveTab }: TabsProps) {
     return (
         <div className="tabHeader">
             <div className="wrap">

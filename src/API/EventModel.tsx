@@ -1,8 +1,8 @@
 // EventModel.ts
 export interface TestPostRequestData {
-    key: Number,
-    title: String,
-    value: Number,
+    key: number,
+    title: string,
+    value: number,
 }
 
 export interface TestPostResponseData {
