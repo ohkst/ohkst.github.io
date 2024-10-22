@@ -6,7 +6,6 @@ import '../styles/EventRegister.css';
 function EventRegister() {
   const [isAgreeChecked, setIsAgreeChecked] = useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
-  const [previousAgreeChecked, setPreviousAgreeChecked] = useState(false); // 이전 체크박스 상태 저장
   
   const handleAgreeCheckboxChange = () => {
     setIsAgreeChecked(!isAgreeChecked);
