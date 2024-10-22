@@ -22,20 +22,28 @@ body, html {
 }
 
 .shareButton {
-  display: flex;
-  align-items: center;
   border: 1px solid #fff;
   border-color: lightgray;
   border-radius: 8px;
-  padding-left: 45px;
-  padding-right: 6px;
+  background-image: url("../icon_kakao.png");
+  background-size: 20px;
+  background-position-x: left;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-origin:content-box;
+  padding-left: 10px;
+  padding-right:10px;
   padding-top: 6px;
   padding-bottom: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 400;
   margin-right: 40px;
   float:right;
-  width: 50px;
-  vertical-align: middle;
+  width: 80px;
+  height: 20px;
+
+}
+
+#shareLabel{
+  margin-left: 24px;
+  font-weight: 400;
+  width: 80px;
 }

@@ -29,7 +29,7 @@ function EventDetail() {
         <div className="event-detail">
             <h2 id = "eventTitle">{event.title}</h2>
             <p id = "dateRange">{event.dateRange}</p>
-            <span class="shareButton">공유하기 </span>
+            <span className="shareButton" ><span id ="shareLabel">공유하기</span></span>
             <div className="tabHeader">
                 <div className="wrap">
                     <div>
