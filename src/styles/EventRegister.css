@@ -1,20 +1,36 @@
 #joinPage{
     margin-left: 5%;
-
     margin-top: 7%;
 }
 
 #labelInfo{
+    margin-left: 5px;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 19px;
 }
 
 #labelAgree{
-    
+    margin-left: 5px;
+    font-size: 16px;
+    height: 35px;
 }
-#infoPdf{
 
+#divLine01{
+    width: "100%";
+    border: none;
+    height: 1px;
+    background-color: black;
+    margin: 10px 20px 10px 0px;
 }
+
+#divLine02{
+    width: "100%";
+    border: none;
+    height: 1px;
+    background-color: lightgray;
+    margin: 10px 20px 10px 0px;
+}
+
 .btn{
  color : white;
  font-weight: 700;
@@ -27,27 +43,40 @@
  border-radius: 5px;
  border-color: transparent;
  position: absolute;
+ margin-top: 20px;
 }
 
 .modal {
     /* 기존 스타일 유지 */
     position: absolute;
-    /* top: 50%;
-    left: 50%; */
-    /* transform: translate(-50%, -50%); */
+    width: 100%;
     /* PDF 컨테이너 스타일 추가 */
     .react-pdf__Page {
-      width: 100%;
+      width: 100vw;
       height: auto;
-      display: block;
-      top:40px;
-      left : 0;
+      display:block;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      top:100px;
+      margin-left : 0;
     }
-  }
-#search{
-    top:50%
 }
 
-#join{
-    top:250%
+#infoPdf{
+    border-radius: 1px;
+    border-color: black;
+    float:inherit;
+    background-color: white;
+    border-radius: 5px;
+    width: 70px;
+    height: 35px;
+    margin-left: 10px;
+}
+
+#Search{
+    top:400px;
+}
+
+#Join{
+    top:550px;
 }
