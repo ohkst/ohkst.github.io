@@ -63,7 +63,7 @@
 }
 
 #infoPdf{
-    border-radius: 1px;
+    border-width: 1px;
     border-color: black;
     float:inherit;
     background-color: white;
