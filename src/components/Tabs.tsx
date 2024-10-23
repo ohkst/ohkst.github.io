@@ -7,27 +7,22 @@ interface TabsProps {
 
 function Tabs({ activeTab, setActiveTab }: TabsProps) {
     return (
-        <div className="tabHeader">
-            <div className="wrap">
-                <div className="tab">
-                    <span 
-                        className={activeTab === 'ongoing' ? 'active' : 'deactive'} 
-                        onClick={() => setActiveTab('ongoing')}
-                    >
-                        진행중 이벤트
-                    </span>
-                </div>
-                <div className="tab">
-                    <span 
-                        className={activeTab === 'benefits' ? 'active' : 'deactive'} 
-                        onClick={() => setActiveTab('benefits')}
-                    >
-                        혜택
-                    </span>
-                </div>
-            </div>
+      <div className="tabHeader">
+        <div className="wrap">
+          <div className="tab">
+            {tabs.map((tab, index) => (
+              <span
+                key={index}
+                className={activeTab === tab.id ? 'active' : 'deactive'}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.title}
+              </span>
+            ))}
+          </div>
         </div>
+      </div>
     );
 }
-
+  
 export default Tabs;

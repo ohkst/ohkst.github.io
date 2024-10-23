@@ -5,12 +5,18 @@ import OngoingEvents from './OngoingEvents';
 import Benefits from './Benefits';
 
 function Events() {
-    const [activeTab, setActiveTab] = useState<string>('ongoing');
+    // Tabs 컴포넌트에 전달할 데이터
+    const tabs = [
+        { id: 'ongoing', title: '진행중 이벤트' },
+        { id: 'benefits', title: '혜택' },
+    ];
+
+    const [activeTab, setActiveTab] = useState('ongoing');
 
     return (
         <div>
-            <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-            {activeTab !== 'benefits' && <Filters activeTab='' setActiveTab={setActiveTab} />}
+            <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+            {activeTab !== 'benefits' && <Filters />}
             {activeTab === 'ongoing' && <OngoingEvents />}
             {activeTab === 'benefits' && <Benefits />}
         </div>
