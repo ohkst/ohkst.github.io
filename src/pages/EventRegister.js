@@ -27,7 +27,6 @@ function EventRegister() {
   const handlePdfClick = () => {
     setIsPdfModalOpen(true);
     setIsAgreeChecked(true); 
-    // PDF 로딩이 완료되면 체크박스 상태를 true로 변경
   };
 
   const [isPdfLoaded, setIsPdfLoaded] = useState(false);
@@ -53,13 +52,12 @@ function EventRegister() {
   return (
     <div id="joinPage">
         <div>
-            <Checkbox id ="checkInfo" checked={isAgreeChecked} onChange={handleAgreeCheckboxChange}>
-                <span id="labelInfo">운영규정 및 개인정보 수집 안내</span>
+            <Checkbox checked={isAgreeChecked} onChange={handleAgreeCheckboxChange} iconOn="../ic_checkbox_24_enable_ON.svg" iconOff="../ic_checkbox_24_enable_OFF.svg" label ="운영규정 및 개인정보 수집 안내" labelClass="labelInfo">
             </Checkbox>
         </div>
         <div id="divLine01"></div>
         <div>
-            <Checkbox id="checkAgree" checked={isAgreeChecked} onChange={handleAgreeCheckboxChange}>      
+            <Checkbox checked={isAgreeChecked} onChange={handleAgreeCheckboxChange} iconOn="../ic_checkbox_20_bg_white_enable_ON.svg" iconOff="../ic_checkbox_20_bg_white_enable_OFF.svg" label="개인정보 수집・이용・제공에 동의합니다." labelClass="labelAgree">      
                 <span id="labelAgree">개인정보 수집・이용・제공에 동의합니다.</span>
                 <button id="infoPdf" onClick={handlePdfClick}>{isPdfModalOpen ? '확인완료' : '규정확인'}</button>
                 {isPdfModalOpen && (
@@ -76,6 +74,16 @@ function EventRegister() {
               </div>
                 )}       
             </Checkbox>
+            <button id="infoPdf" onClick={handlePdfClick}>{isPdfModalOpen ? '확인완료' : '규정확인'}</button>
+                {isPdfModalOpen && (
+                <div className="modal">
+                  {pdfLoadingError && <div>PDF 로딩에 실패했습니다.</div>}
+                  {isPdfLoaded ? (
+                    <Document file={process.env.PUBLIC_URL + '/domestic_ms_event_2301.pdf'}>
+                      <Page pageNumber={1} />
+                    </Document>) : (<span/>)}
+                </div>)
+                }       
         </div>
         <div id="divLine02"></div>
         <div>
