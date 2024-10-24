@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import '../styles/EventDetail.css';
 import EventContent from './EventContent';
 import EventRegister from './EventRegister';
+import Tabs from '../components/Tabs';
 
 const eventDetails: Record<number, {title: string, dateRange: string}> = {
     0: { title: "00해외주식 거래", dateRange: "2024.10.07 ~ 2024.11.15"},
@@ -11,12 +12,27 @@ const eventDetails: Record<number, {title: string, dateRange: string}> = {
     3: { title: "BanKIS 계좌개설 이벤트", dateRange: "2024.10.01 ~ 2024.12.31"}
 };
 
-function EventDetail() {
+interface Tab {
+    id: string;
+    title: string;
+}
+
+interface MyTabsProps extends React.JSX.IntrinsicAttributes {
+    activeTab: string;
+    setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  }
+
+function EventDetail() {    
     const { id } = useParams();
     const index = parseInt(id || '0', 10);
     const event = eventDetails[index];
+    const tabs = [
+        { id: 'contents', title: '이벤트 내용보기' },
+        { id: 'register', title: '이벤트 참여하기' },
+    ];
 
     const [activeTab, setActiveTab] = useState('contents');
+
     if (!event) {
         return <p>해당 이벤트를 찾을 수 없습니다.</p>;
     }
@@ -25,28 +41,15 @@ function EventDetail() {
         <div className="event-detail">
             <h2 id = "eventTitle">{event.title}</h2>
             <p id = "dateRange">{event.dateRange}</p>
+            <span className="shareButton" ><span id ="shareLabel">공유하기</span></span>
 
             <div className="tabHeader">
                 <div className="wrap">
-                    <div className="tab">
-                        <span 
-                            className={activeTab === 'contents' ? 'active' : 'deactive'} 
-                            onClick={() => setActiveTab('contents')}
-                        >
-                            이벤트 내용보기
-                        </span> 
+                    <div>
+                        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabs={tabs} />
+                        {activeTab === 'contents' && <EventContent />}
+                        {activeTab === 'register' && <EventRegister/>}
                     </div>
-                    <div id ="contentsTab">{activeTab === 'contents' && <EventContent />}</div>
-                    
-                    <div className="tab">
-                        <span 
-                            className={activeTab === 'register' ? 'active' : 'deactive'} 
-                            onClick={() => setActiveTab('register')}
-                        >
-                            이벤트 참여하기
-                        </span>
-                    </div>
-                    <div id ="registerTab">{activeTab === 'register' && <EventRegister />}</div>
                 </div>
             </div>
         </div>

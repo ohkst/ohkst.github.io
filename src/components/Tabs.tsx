@@ -1,33 +1,34 @@
 import React from 'react';
 
-interface TabsProps {
+  interface Tab {
+    id: string;
+    title: string;
+  }
+  
+  interface TabsProps {
+    tabs: Tab[]; // Added tabs prop
     activeTab: string;
     setActiveTab: React.Dispatch<React.SetStateAction<string>>;
   }
-
-function Tabs({ activeTab, setActiveTab }: TabsProps) {
+  
+  function Tabs({ activeTab, setActiveTab, tabs }: TabsProps) {
     return (
-        <div className="tabHeader">
-            <div className="wrap">
-                <div className="tab">
-                    <span 
-                        className={activeTab === 'ongoing' ? 'active' : 'deactive'} 
-                        onClick={() => setActiveTab('ongoing')}
-                    >
-                        진행중 이벤트
-                    </span>
-                </div>
-                <div className="tab">
-                    <span 
-                        className={activeTab === 'benefits' ? 'active' : 'deactive'} 
-                        onClick={() => setActiveTab('benefits')}
-                    >
-                        혜택
-                    </span>
-                </div>
-            </div>
+      <div className="tabHeader">
+        <div className="wrap">
+          <div className="tab">
+            {tabs.map((tab, index) => (
+              <span
+                key={index}
+                className={activeTab === tab.id ? 'active' : 'deactive'} // Concise conditional rendering
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.title}
+              </span>
+            ))}
+          </div>
         </div>
+      </div>
     );
-}
-
-export default Tabs;
+  }
+  
+  export default Tabs;

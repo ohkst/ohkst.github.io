@@ -16,12 +16,12 @@
   margin-right: 12px;
 }
 
-#brand {
+#naviTitle {
   display: inline-block;
   font-size: 20px;
   font-weight: 700;
 }
-#brand a {
+/* #brand a {
   color: black;
   text-decoration: none;
-}
+} */
