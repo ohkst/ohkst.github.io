@@ -1,0 +1,15 @@
+variables:
+  TEST_ECR_REGISTRY: 961030948515.dkr.ecr.ap-northeast-2.amazonaws.com
+  PROD_ECR_REGISTRY: 814702528227.dkr.ecr.ap-northeast-2.amazonaws.com
+  REGISTRY_PATH: /s2/mts
+
+  AQUA_HOST: https://cwpp-d.koreainvestment.com
+  AQUA_USER: cicdscanner
+
+  SPARROW_REGISTRY: 687187039916.dkr.ecr.ap-northeast-2.amazonaws.com/sparrow:20240620_01
+  SPARROW_DEPARTMENT_KEY: B_2
+  SPARROW_SERVER: https://10.233.167.93:18080
+  SPARROW_USER: 111632
+
+  WHITE_SOURCE_REGISTRY: 687187039916.dkr.ecr.ap-northeast-2.amazonaws.com/oss-agent:jdk21_20241108_01
+  WHITE_SOURCE_USER: 112676

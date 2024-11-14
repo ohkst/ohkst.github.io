@@ -1,0 +1,24 @@
+{
+  "key": "MTS_Odin",
+  "langs": [
+    "java",
+    "kt",
+    "tsx",
+    "ts",
+    "html",
+    "js"
+  ],
+  "includes": [
+    "general-utils",
+    "mca",
+    "odin-api",
+    "odin-core",
+    "odin-infra",
+    "odin-frontend"
+  ],
+  "excludes": [
+    "*/src/test/*",
+    "gradle*.properties",
+    "*/gradle/*"
+  ]
+}

@@ -3,7 +3,7 @@ import Tabs from '../components/Tabs';
 import Filters from '../components/Filters';
 import OngoingEvents from './OngoingEvents';
 import Benefits from './Benefits';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 interface Tab {
     id: string;
@@ -18,8 +18,8 @@ interface Tab {
   
 function Events() {
 
-    const { id } = useParams();
-    const index = parseInt(id || '0', 10);
+    // const { id } = useParams();
+    // const index = parseInt(id || '0', 10);
     const tabs = [
         { id: 'ongoing', title: '진행중 이벤트' },
         { id: 'benefits', title: '혜택' },

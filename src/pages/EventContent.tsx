@@ -18,7 +18,7 @@ function EventContent() {
 
     return (
         <div>
-            <img id = "detailImage" src={imageUrl}/>
+            <img id = "detailImage" src={imageUrl} alt=""/>
         </div>
     );
 }
