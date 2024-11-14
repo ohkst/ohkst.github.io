@@ -12,16 +12,6 @@ const eventDetails: Record<number, {title: string, dateRange: string}> = {
     3: { title: "BanKIS 계좌개설 이벤트", dateRange: "2024.10.01 ~ 2024.12.31"}
 };
 
-interface Tab {
-    id: string;
-    title: string;
-}
-
-interface MyTabsProps extends React.JSX.IntrinsicAttributes {
-    activeTab: string;
-    setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-  }
-
 function EventDetail() {    
     const { id } = useParams();
     const index = parseInt(id || '0', 10);

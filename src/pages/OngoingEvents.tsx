@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EventCard, { EventCardProps } from "../components/EventCard";
 
-import { getData, postData, putData, deleteData } from "../API/api";
+import { getData, postData } from "../API/api";
 import { TestPostRequestData } from "../API/EventModel";
 
 const APIEndPoint = {

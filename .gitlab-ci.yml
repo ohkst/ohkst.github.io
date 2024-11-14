@@ -1,36 +1,7 @@
-stages:
-  - build
-  - deploy
-
-build:
-  stage: build
-  only:
-    - main  
-  cache:
-    paths:
-      - dist
-      - node_modules
-  artifacts:
-    expire_in: 1 hour
-    paths:
-      - build/   
-  before_script:
-    - npm install   
-  script:
-    - npm run build    
-  tags:
-    - test-react
-
-deploy:
-  stage: deploy
-  only:
-    - main
-  cache:
-    paths:
-      - dist 
-  script:
-    - sudo rm -rf /home/test/test-react/build
-    - sudo cp -r build /home/test/test-react/build
-    - sudo nginx -s reload
-  tags:
-    - test-react
+include:
+  - local: .gitlab-ci/dev-gitlab.yml
+    rules:
+      - if: $CI_SERVER_HOST == "dev-gitlab.kis.zone"
+  - local: .gitlab-ci/test-gitlab.yml
+    rules:
+      - if: $CI_SERVER_HOST == "test-gitlab.kis.zone"

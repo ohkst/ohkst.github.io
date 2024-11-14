@@ -1,0 +1,190 @@
+include:
+  - local: .gitlab-ci/ci-common.yml
+  - local: .gitlab-ci/test-variable.yml
+
+stages:
+  - image-vulnerability-scan
+  - frontend-build
+  - backend-build
+  - docker-login
+  - docker-build-and-ecr-upload
+  - prod-docker-build-and-ecr-upload
+  - sparrow-analyze
+  - white-source-analyze
+
+image-vulnerability-scan:
+  stage: image-vulnerability-scan
+  image: $JDK_IMAGE
+  before_script:
+    !reference [ .before_script, gradle ]
+  script:
+    - wget $ECR_LOGIN_URL
+    - chmod 755 docker-credential-ecr-login
+    - cp docker-credential-ecr-login /usr/bin/
+    - ./gradlew build -x test :odin-api:jibBuildTar -Djib.from.image=$JDK_IMAGE
+    - /scan/scannercli scan --dockerless --no-verify=true --host $AQUA_HOST --user $AQUA_USER --password $AQUA_PASSWORD --docker-archive $CI_PROJECT_DIR/odin-api/build/jib-image.tar $IMAGE_NAME:$IMAGE_TAG || echo 'scan fail skip'
+  tags:
+    - $RUNNER
+  rules:
+    - !reference [ .rule, release-branch-push ]
+    - !reference [ .rule, rule-image-scan ]
+
+frontend-build:
+  stage: frontend-build
+  image: node:20.11.1-alpine
+  script:
+    - cd odin-frontend
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - odin-api/src/main/resources/static/public
+  tags:
+    - $RUNNER
+  rules:
+    - !reference [ .rule, main-branch-push ]
+    - !reference [ .rule, feature-branch-push-and-merge-request-event ]
+    - !reference [ .rule, release-branch-push ]
+    - !reference [ .rule, dev-branch-push ]
+    - !reference [ .rule, tag-created ]
+
+backend-build:
+  stage: backend-build
+  image: $JDK_IMAGE
+  before_script:
+    !reference [ .before_script, gradle ]
+  script:
+    - echo $CI_COMMIT_REF_SLUG
+    - ./gradlew build -x test
+  artifacts:
+    paths:
+      - odin-api/build/libs/odin-api.jar
+  tags:
+    - $RUNNER
+  rules:
+    - !reference [ .rule, main-branch-push ]
+    - !reference [ .rule, feature-branch-push-and-merge-request-event ]
+    - !reference [ .rule, release-branch-push ]
+    - !reference [ .rule, dev-branch-push ]
+    - !reference [ .rule, tag-created ]
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - .gradle/wrapper
+      - .gradle/caches
+    policy: pull
+
+docker-login:
+  image: $DOCKER_GIT_CI_IMAGE
+  stage: docker-login
+  before_script:
+    - echo "========== LOGIN > BEFORE_SCRIPT =========="
+  script:
+    - echo "DOCKER_LOGIN_TOKEN=$(aws ecr get-login-password)" > token.env
+  artifacts:
+    reports:
+      dotenv: token.env
+  tags:
+    - $RUNNER
+  rules:
+    - !reference [ .rule, main-branch-push ]
+    - !reference [ .rule, feature-branch-push-and-merge-request-event ]
+    - !reference [ .rule, release-branch-push ]
+    - !reference [ .rule, dev-branch-push ]
+    - !reference [ .rule, tag-created ]
+
+docker-image-build-and-push-to-aws-ecr:
+  stage: docker-build-and-ecr-upload
+  image: $DOCKER_IMAGE
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    API_IMAGE: $IMAGE_NAME:${IMAGE_TAG}
+    API_IMAGE_REGISTRY: $TEST_ECR_REGISTRY$REGISTRY_PATH/$IMAGE_NAME:${IMAGE_TAG}
+  services:
+    - docker:dind
+  before_script:
+    - echo "========== PACKAGE > BEFORE_SCRIPT =========="
+    - echo $CI_REGISTRY
+    - echo $API_IMAGE
+    - echo $API_IMAGE_REGISTRY
+    - echo $DOCKER_LOGIN_TOKEN | docker login --username AWS --password-stdin $TEST_ECR_REGISTRY
+  script:
+    - echo "========== PACKAGE > SCRIPT =========="
+    - docker build -t $API_IMAGE .
+    - docker image ls
+    - docker tag $API_IMAGE $API_IMAGE_REGISTRY
+    - docker push $API_IMAGE_REGISTRY
+  tags:
+    - $RUNNER
+  rules:
+    - !reference [ .rule, main-branch-push ]
+    - !reference [ .rule, release-branch-push ]
+    - !reference [ .rule, dev-branch-push ]
+    - !reference [ .rule, tag-created ]
+
+prod-docker-image-build-and-push-to-aws-ecr:
+  stage: prod-docker-build-and-ecr-upload
+  image: $DOCKER_IMAGE
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    API_IMAGE: $IMAGE_NAME:${IMAGE_TAG}
+    API_IMAGE_REGISTRY: $PROD_ECR_REGISTRY$REGISTRY_PATH/$IMAGE_NAME:${IMAGE_TAG}
+  services:
+    - docker:dind
+  before_script:
+    - echo "========== PACKAGE > BEFORE_SCRIPT =========="
+    - echo $CI_REGISTRY
+    - echo $API_IMAGE
+    - echo $API_IMAGE_REGISTRY
+    - echo $DOCKER_LOGIN_TOKEN | docker login --username AWS --password-stdin $PROD_ECR_REGISTRY
+  script:
+    - echo "========== PACKAGE > SCRIPT =========="
+    - docker build -t $API_IMAGE .
+    - docker image ls
+    - docker tag $API_IMAGE $API_IMAGE_REGISTRY
+    - docker push $API_IMAGE_REGISTRY
+  tags:
+    - $RUNNER
+  rules:
+    - !reference [ .rule, tag-created ]
+
+sparrow-analyze:
+  stage: sparrow-analyze
+  image: $SPARROW_REGISTRY
+  script:
+    - WORKSPACE=$(pwd)
+    - PROJECT_KEY=$(cat .gitlab-ci/sparrow/secure-coding.json | jq '.key' | sed s/\"//g)
+    - LANGS=$(cat .gitlab-ci/sparrow/secure-coding.json | jq -r '.langs | join(",")')
+    - EXCLUDES=$(cat .gitlab-ci/sparrow/secure-coding.json | jq -r '.excludes | join(":")')
+    - cat .gitlab-ci/sparrow/secure-coding.json | jq -r --arg prefix "$WORKSPACE" --arg nl $'\n' '.includes | map($prefix + "/" + . + $nl) | join("")' > includes.lst
+    - echo ${SPARROW_PASSWORD} > /app/sparrow_pass
+    # 프로젝트 생성 - 이미 생성된 프로젝트를 생성하려고 시도하면 에러를 뱉기 때문에 항상 true
+    - sh /app/sparrow-mkproj.sh -S ${SPARROW_SERVER} -U ${SPARROW_USER} -PW /app/sparrow_pass -PP ${SPARROW_DEPARTMENT_KEY} -P ${PROJECT_KEY} || true
+    # 프로젝트 분석
+    - sh /app/sparrow-client.sh -S ${SPARROW_SERVER} -U ${SPARROW_USER} -PW /app/sparrow_pass -P ${PROJECT_KEY} -L ${LANGS} -SL includes.lst -EX ${EXCLUDES} -I
+  tags:
+    - $RUNNER
+  rules:
+    - !reference [ .rule, rule-security-analyze ]
+
+white-source-analyze:
+  stage: white-source-analyze
+  image: $WHITE_SOURCE_REGISTRY
+  script:
+    - WORKSPACE=$(pwd)
+    - mkdir /odin-oss && mkdir /odin-oss/oss-source
+    - ln -s /app/oss_agent/config /odin-oss/
+    - cd /odin-oss
+    - cd ${WORKSPACE}
+    - /bin/sh .gitlab-ci/white-source/gen-oss-source.sh /odin-oss/oss-source
+    - cd /odin-oss
+    - /bin/sh /app/oss_agent/a.sh -u ${WHITE_SOURCE_USER} -p odin -s oss-source -o output.json -t ws
+  tags:
+    - $RUNNER
+  rules:
+    - !reference [ .rule, rule-security-analyze ]
+
+after_script:
+  - echo "End CI"

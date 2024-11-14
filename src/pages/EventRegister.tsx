@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import Checkbox from '../components/Checkbox';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { pdfjs } from 'react-pdf';
 import '../styles/EventRegister.css';
 import AgreePdf from '../domestic_ms_event_2301.pdf';
 
@@ -30,7 +30,7 @@ function EventRegister() {
     setIsPdfModalOpen(true); // PDF 모달 토글
   };
 
-  const [isPdfLoaded, setIsPdfLoaded] = useState(false);
+  // const [isPdfLoaded, setIsPdfLoaded] = useState(false);
   const [pdfLoadingError, setPdfLoadingError] = useState(false);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function EventRegister() {
         try {
           // PDF 파일 로딩
           window.open(AgreePdf, '_blank');
-          setIsPdfLoaded(true);
+          // setIsPdfLoaded(true);
         } catch (error) {
           console.error('PDF 로딩 실패:', error);
           setPdfLoadingError(true);
@@ -53,14 +53,26 @@ function EventRegister() {
   return (
     <div id="joinPage">
         <div>
-            <Checkbox checked={isAgreeChecked} onChange={handleAgreeCheckboxChange} iconOn="../ic_checkbox_24_enable_ON.svg" iconOff="../ic_checkbox_24_enable_OFF.svg" label ="운영규정 및 개인정보 수집 안내" labelClass="labelInfo">
-            </Checkbox>
+            <Checkbox 
+              checked={isAgreeChecked} 
+              onChange={handleAgreeCheckboxChange} 
+              iconOn="../ic_checkbox_24_enable_ON.svg" 
+              iconOff="../ic_checkbox_24_enable_OFF.svg" 
+              label ="운영규정 및 개인정보 수집 안내" 
+              labelClass="labelInfo"
+            />
         </div>
         <div id="divLine01"></div>
         <div>
-            <Checkbox checked={isAgreeChecked} onChange={handleAgreeCheckboxChange} iconOn="../ic_checkbox_20_bg_white_enable_ON.svg" iconOff="../ic_checkbox_20_bg_white_enable_OFF.svg" label="개인정보 수집・이용・제공에 동의합니다." labelClass="labelAgree">      
+            <Checkbox 
+              checked={isAgreeChecked} 
+              onChange={handleAgreeCheckboxChange} 
+              iconOn="../ic_checkbox_20_bg_white_enable_ON.svg" 
+              iconOff="../ic_checkbox_20_bg_white_enable_OFF.svg" 
+              label="개인정보 수집・이용・제공에 동의합니다." 
+              labelClass="labelAgree"
+            />
       
-            </Checkbox>
                 <button id="infoPdf" onClick={handlePdfClick}>{isPdfModalOpen ? '확인완료' : '규정확인'}</button>
                 {isPdfModalOpen && (
                 <div className="modal">
@@ -73,7 +85,7 @@ function EventRegister() {
               </div>
                 )} 
             
-            <a href="/domestic_ms_event_2301.pdf" target='_blank'/>
+            <a href="/domestic_ms_event_2301.pdf" target='_blank'> </a>
         </div>
         <div id="divLine02"></div>
         <div>
