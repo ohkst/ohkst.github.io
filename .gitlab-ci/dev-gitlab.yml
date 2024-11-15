@@ -166,5 +166,23 @@ docker-image-build-and-push-to-aws-ecr:
     - !reference [ .rule, dev-branch-push ]
     - !reference [ .rule, tag-created ]
 
+applicationset-deploy:
+  stage: applicationset-deploy
+  image: $DOCKER_KUBECTL_IMAGE
+  before_script:
+    - !reference [.before_script, aws-credentials]
+    - !reference [.before_script, argocd-variables]
+  script:
+    - source credentials.env
+    - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+    - kubectl config get-contexts
+    - envsubst < ${CI_PROJECT_DIR}/${ARGOCD_APPLICATIONSET_DIR}/values.yaml > values_with_vars.yaml
+    - cat values_with_vars.yaml
+    - kubectl apply -f values_with_vars.yaml
+  tags:
+    - $RUNNER
+  rules:
+    - !reference [.rule, rule-argocd-deploy]
+
 after_script:
   - echo "End CI"

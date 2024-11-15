@@ -43,3 +43,6 @@ variables:
 
   rule-image-scan:
     - if: $CI_IMAGE_SCAN == "true"
+
+  rule-argocd-deploy:
+    - if: $CI_ARGOCD == "true"
