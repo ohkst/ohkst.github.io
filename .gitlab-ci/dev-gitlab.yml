@@ -10,6 +10,7 @@ stages:
   - frontend-build
   - docker-login
   - docker-build-and-ecr-upload
+  - applicationset-deploy
 
 vaccine_check:
   stage: vaccine-check
