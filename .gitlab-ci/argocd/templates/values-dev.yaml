@@ -1,0 +1,110 @@
+global:
+  name: thor-api
+  canaryWithBluegreen: true
+
+base:
+  deployment:
+    enabled: true
+    replicaCount: 1
+    image:
+      repository: 331211426240.dkr.ecr.ap-northeast-2.amazonaws.com/s2/mts/mts-react-web
+      tag: latest
+    livenessProbe:
+      port: 8080
+      path: /aws/health
+      initialDelaySeconds: 30
+      periodSeconds: 30
+    readinessProbe:
+      port: 8080
+      path: /aws/health
+      initialDelaySeconds: 30
+      periodSeconds: 30
+    startupProbeEnabled: true
+    startupProbe:
+      port: 8080
+      path: /warmup
+      initialDelaySeconds: 40
+      timeoutSeconds: 10
+      failureThreshold: 30
+      periodSeconds: 15
+    healthCheck: /aws/health
+    type: ClusterIP
+    name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+    # Affinity (NodeAffinity)
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: eks.amazonaws.com/nodegroup
+                  operator: In
+                  values:
+                    - dev-mts-managed-eks-nodegroup
+            - matchExpressions:
+                - key: KarpenterProvisionerName
+                  operator: In
+                  values:
+                    - mts
+    # Tolerations
+    tolerations:
+      - key: mts
+        operator: Exists
+    hostVolume:
+      path: /kis/logs
+      name: kis-log
+      readonly: false
+    # Resources (Container CPU, Memory)
+    resources:
+      requests:
+        #cpu: 4
+        memory: 1Gi
+      limits:
+        #cpu: 4
+        memory: 1Gi
+    # Annotaions
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9091"
+      prometheus.io/path: "/kis/prometheus"
+    # LifeCycle
+    lifecycle:
+      preStop:
+        exec:
+          command: [ "sleep", "30" ]
+    terminationGracePeriodSeconds: 31
+  # AutoScaling (KEDA)
+  keda:
+    enabled: false
+    annotations: {}
+    pollingInterval: 30
+    cooldownPeriod: 60
+    maxReplicaCount: 1
+    advanced: {}
+    ampTrigger: false
+    triggers:
+    - type: cpu
+      metricType: Utilization # Allowed types are 'Utilization' or 'AverageValue'
+      metadata:
+        value: "60"
+  # Java ENV
+  java_env:
+    enabled: true
+    java_tool_options:
+      springProfile: dev
+      application_package: mts.kis
+  service:
+    enabled: true
+    ports:
+      port: 80
+      name: http
+      protocol: TCP # SCTP, TCP, USP only upper case
+      targetPort: 8080
+  # ServiceAccount
+  serviceAccount:
+    enabled: true
+    annotations: {
+      "eks.amazonaws.com/role-arn": "arn:aws:iam::331211426240:role/dev-mts-thor-api-role"
+    }
