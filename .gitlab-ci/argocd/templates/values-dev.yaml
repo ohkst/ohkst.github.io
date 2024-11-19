@@ -1,5 +1,5 @@
 global:
-  name: thor-api
+  name: mts-web-react
   canaryWithBluegreen: true
 
 base:
@@ -8,20 +8,20 @@ base:
     replicaCount: 1
     image:
       repository: 331211426240.dkr.ecr.ap-northeast-2.amazonaws.com/s2/mts/mts-react-web
-      tag: latest
+      tag: dev-mts-web-react
     livenessProbe:
-      port: 8080
+      port: 3000
       path: /aws/health
       initialDelaySeconds: 30
       periodSeconds: 30
     readinessProbe:
-      port: 8080
+      port: 3000
       path: /aws/health
       initialDelaySeconds: 30
       periodSeconds: 30
     startupProbeEnabled: true
     startupProbe:
-      port: 8080
+      port: 3000
       path: /warmup
       initialDelaySeconds: 40
       timeoutSeconds: 10
@@ -32,7 +32,7 @@ base:
     name: http
     protocol: TCP
     port: 80
-    targetPort: 8080
+    targetPort: 3000
     # Affinity (NodeAffinity)
     affinity:
       nodeAffinity:
@@ -65,10 +65,10 @@ base:
         #cpu: 4
         memory: 1Gi
     # Annotaions
-    annotations:
-      prometheus.io/scrape: "true"
-      prometheus.io/port: "9091"
-      prometheus.io/path: "/kis/prometheus"
+#    annotations:
+#      prometheus.io/scrape: "true"
+#      prometheus.io/port: "9091"
+#      prometheus.io/path: "/kis/prometheus"
     # LifeCycle
     lifecycle:
       preStop:
@@ -101,7 +101,7 @@ base:
       port: 80
       name: http
       protocol: TCP # SCTP, TCP, USP only upper case
-      targetPort: 8080
+      targetPort: 3000
   # ServiceAccount
   serviceAccount:
     enabled: true
