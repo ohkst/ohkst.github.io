@@ -6,7 +6,7 @@ WORKDIR /app
 
 # SSL 인증서 검증 비활성화
 # 클라우드 환경에서는 안해도 될 것 같음
-# RUN npm config set strict-ssl false
+RUN npm config set strict-ssl false
 
 # package.json 워킹 디렉토리에 복사 (.은 설정한 워킹 디렉토리를 뜻함)
 COPY package.json .
