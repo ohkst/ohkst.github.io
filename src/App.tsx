@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import AWSHealth from './pages/AwsHealth';
+import NotFound from './pages/NotFound';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/" element={<Events />} />
                     <Route path="/event/:id" element={<EventDetail />} />
                     <Route path="/aws/health" element={<AWSHealth />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
         </Router>
