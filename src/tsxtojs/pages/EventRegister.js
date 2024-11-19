@@ -62,7 +62,7 @@ function EventRegister() {
         setIsAgreeChecked(true);
         setIsPdfModalOpen(true); // PDF 모달 토글
     };
-    const [isPdfLoaded, setIsPdfLoaded] = (0, react_1.useState)(false);
+    // const [isPdfLoaded, setIsPdfLoaded] = useState(false);
     const [pdfLoadingError, setPdfLoadingError] = (0, react_1.useState)(false);
     (0, react_1.useEffect)(() => {
         const loadPdf = () => __awaiter(this, void 0, void 0, function* () {
@@ -70,7 +70,7 @@ function EventRegister() {
                 try {
                     // PDF 파일 로딩
                     window.open(domestic_ms_event_2301_pdf_1.default, '_blank');
-                    setIsPdfLoaded(true);
+                    // setIsPdfLoaded(true);
                 }
                 catch (error) {
                     console.error('PDF 로딩 실패:', error);
@@ -88,7 +88,7 @@ function EventRegister() {
             react_1.default.createElement(Checkbox_1.default, { checked: isAgreeChecked, onChange: handleAgreeCheckboxChange, iconOn: "../ic_checkbox_20_bg_white_enable_ON.svg", iconOff: "../ic_checkbox_20_bg_white_enable_OFF.svg", label: "\uAC1C\uC778\uC815\uBCF4 \uC218\uC9D1\u30FB\uC774\uC6A9\u30FB\uC81C\uACF5\uC5D0 \uB3D9\uC758\uD569\uB2C8\uB2E4.", labelClass: "labelAgree" }),
             react_1.default.createElement("button", { id: "infoPdf", onClick: handlePdfClick }, isPdfModalOpen ? '확인완료' : '규정확인'),
             isPdfModalOpen && (react_1.default.createElement("div", { className: "modal" }, pdfLoadingError && react_1.default.createElement("div", null, "PDF \uB85C\uB529\uC5D0 \uC2E4\uD328\uD588\uC2B5\uB2C8\uB2E4."))),
-            react_1.default.createElement("a", { href: "/domestic_ms_event_2301.pdf", target: '_blank' })),
+            react_1.default.createElement("a", { href: "/domestic_ms_event_2301.pdf", target: '_blank' }, " ")),
         react_1.default.createElement("div", { id: "divLine02" }),
         react_1.default.createElement("div", null,
             react_1.default.createElement("button", { className: "btn Search" }, "\uB300\uC0C1\uC5EC\uBD80 \uC870\uD68C\uD558\uAE30")),

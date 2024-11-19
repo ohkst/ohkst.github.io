@@ -4,9 +4,3 @@ variables:
 
   AQUA_HOST: https://cwpp-d.koreainvestment.com
   AQUA_USER: cicdscanner
-
-  # argocd
-  ARGOCD_APPLICATIONSET_DIR: '.gitlab-ci/argocd/applicationset'
-  ARGOCD_TEMPLATES_DIR: '.gitlab-ci/argocd/templates'
-  ASSUME_ROLE_ARN: 'arn:aws:iam::467878288214:role/passport-kis-mgmt-dev-admin-default-role'
-  EKS_CLUSTER_NAME: 'dev-ops-eks-cluster'

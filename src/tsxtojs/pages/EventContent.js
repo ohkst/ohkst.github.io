@@ -18,6 +18,6 @@ function EventContent() {
     const event = eventDetails[index];
     const imageUrl = "https://file.truefriend.com/updata/namo/" + event.imgName + ".png";
     return (react_1.default.createElement("div", null,
-        react_1.default.createElement("img", { id: "detailImage", src: imageUrl })));
+        react_1.default.createElement("img", { id: "detailImage", src: imageUrl, alt: "" })));
 }
 exports.default = EventContent;

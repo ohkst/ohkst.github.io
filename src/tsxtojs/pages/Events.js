@@ -31,10 +31,9 @@ const Tabs_1 = __importDefault(require("../components/Tabs"));
 const Filters_1 = __importDefault(require("../components/Filters"));
 const OngoingEvents_1 = __importDefault(require("./OngoingEvents"));
 const Benefits_1 = __importDefault(require("./Benefits"));
-const react_router_dom_1 = require("react-router-dom");
 function Events() {
-    const { id } = (0, react_router_dom_1.useParams)();
-    const index = parseInt(id || '0', 10);
+    // const { id } = useParams();
+    // const index = parseInt(id || '0', 10);
     const tabs = [
         { id: 'ongoing', title: '진행중 이벤트' },
         { id: 'benefits', title: '혜택' },
