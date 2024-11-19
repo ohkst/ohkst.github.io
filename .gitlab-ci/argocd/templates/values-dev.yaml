@@ -8,7 +8,7 @@ base:
     replicaCount: 1
     image:
       repository: 331211426240.dkr.ecr.ap-northeast-2.amazonaws.com/s2/mts/mts-react-web
-      tag: dev-mts-web-react
+      tag: latest
     livenessProbe:
       port: 3000
       path: /aws/health
