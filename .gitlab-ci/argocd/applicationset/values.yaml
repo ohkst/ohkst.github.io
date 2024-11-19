@@ -22,7 +22,7 @@ spec:
     spec:
       project: '{{project}}'
       source:
-        repoURL: https://$APP_ENV-gitlab.kis.zone/s2/thor.git
+        repoURL: https://$APP_ENV-gitlab.kis.zone/c2/mts_web_react.git
         path: $ARGOCD_TEMPLATES_DIR
         targetRevision: '{{targetRevision}}'
         helm:
