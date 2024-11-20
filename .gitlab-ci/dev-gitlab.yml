@@ -98,7 +98,7 @@ image-vulnerability-scan:
 
 frontend-build:
   stage: frontend-build
-  image: node:20.11.1-alpine
+  image: node:22
   script:
     # - cd odin-frontend
     - npm install
