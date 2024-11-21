@@ -40,12 +40,14 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "ios >= 14"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "ios >= 14"
     ]
   },
   "babel": {
@@ -61,7 +63,6 @@
       "@babel/plugin-proposal-class-properties"
     ]
   },
-
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
