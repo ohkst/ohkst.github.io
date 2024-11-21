@@ -1,3 +1,4 @@
+console.log("Custom Webpack configuration is being applied!");
 const { override, addBabelPreset } = require('customize-cra');
 
 module.exports = override(

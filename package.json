@@ -48,24 +48,11 @@
       "last 1 safari version"
     ]
   },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "browsers": [
-              "last 2 versions",
-              "iOS >= 14"
-            ]
-          },
-          "useBuiltIns": "usage",
-          "corejs": 3
-        }
-      ]
-    ]
-  },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-syntax-export-namespace-from": "^7.8.3",
+    "@babel/preset-env": "^7.26.0",
+    "babel-loader": "^9.2.1",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.2.1"
   }
