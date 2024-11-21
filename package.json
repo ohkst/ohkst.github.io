@@ -47,5 +47,22 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "browsers": [
+              "last 2 versions",
+              "iOS >= 14"
+            ]
+          },
+          "useBuiltIns": "usage",
+          "corejs": 3
+        }
+      ]
+    ]
   }
 }
