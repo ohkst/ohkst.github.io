@@ -10,10 +10,18 @@ function Navbar() {
   const handleBackButtonClick = () => {
     if (window.Android) {
       // Android 네이티브 함수 호출
+      console.warn("Android");
       window.Android.showToast("안드로이드 네이티브 호출");
-    } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.iOS) {
+    } else if (window.webkit && 
+      window.webkit.messageHandlers && 
+      window.webkit.messageHandlers.back &&
+      window.webkit.messageHandlers.iOS) {
       // iOS 네이티브 함수 호출
-      window.webkit.messageHandlers.iOS.postMessage("back");
+      console.warn("iOS");
+      window.webkit.messageHandlers.iOS.postMessage("iOS");
+
+      window.webkit.messageHandlers.back.postMessage("back");
+      window.webkit.messageHandlers.back.showAlert("t", "m");
     } else {
       console.warn("WebView 환경이 아님");
       navigate(-1);
