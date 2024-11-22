@@ -35,11 +35,10 @@ function OngoingEvents() {
   useEffect(() => {
     const fetchImageSources = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:4000/proxy?url=${encodeURIComponent(
-            "https://securities.koreainvestment.com/main/customer/notice/Event.jsp?gubun=i"
-          )}`
-        );
+        const response = await fetch("https://securities.koreainvestment.com/main/customer/notice/Event.jsp?gubun=i", {
+          method: "GET",
+          mode: "cors"
+        });
         const text = await response.text();
 
         const parser = new DOMParser();
