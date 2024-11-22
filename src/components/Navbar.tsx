@@ -8,7 +8,16 @@ function Navbar() {
   const location = useLocation();
 
   const handleBackButtonClick = () => {
-    navigate(-1);
+    if (window.Android) {
+      // Android 네이티브 함수 호출
+      window.Android.showToast("안드로이드 네이티브 호출");
+    } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.iOS) {
+      // iOS 네이티브 함수 호출
+      window.webkit.messageHandlers.iOS.postMessage("back");
+    } else {
+      console.warn("WebView 환경이 아님");
+      navigate(-1);
+    }
   };
 
   const titleMap: { [key: string]: string } = {
