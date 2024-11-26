@@ -1,20 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export interface EventCardProps {
   id: number;
-  title?: string;
-  description?: string;
-  dateRange?: string;
   imagePath: string;
+  title: string|null;
+  dateRange: string|null;
+  onClick?: () => void; // optional로 설정
 }
 
 function EventCard(props: EventCardProps) {
+  const { id, title, dateRange } = props;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/event/${id}`, { state: { title : title, dateRange : dateRange } });
+    console.log(id);
+  };
+
   return (
-    <div className="event-card">
-      <Link to={`/event/${props.id}`}>
-        <img className="event-card-image" src={props.imagePath} alt="" />
-      </Link>
+    <div className="event-card" onClick={handleClick}>
+      <img className="event-card-image" src={props.imagePath} alt="" />
     </div>
   );
 }

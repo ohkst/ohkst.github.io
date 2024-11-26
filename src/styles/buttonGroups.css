@@ -1,0 +1,21 @@
+  /* 필터 아이콘 영역 */
+  .overlayContent {
+    display: flex;
+    background-color: white;
+    padding: 20px;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.buttonItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc((100% / 3) - 8px);
+  height: 43px;
+  border: 1px solid #fff;
+  border-color: lightgray;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: transparent;
+}
