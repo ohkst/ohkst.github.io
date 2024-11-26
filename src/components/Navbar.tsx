@@ -20,9 +20,8 @@ function Navbar() {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
       // window.webkit.messageHandlers.iOS.postMessage("iOS");
-
-      // window.webkit.messageHandlers.back.postMessage("back");
-      window.webkit.messageHandlers.back.showAlert("t", "m");
+      window.webkit.messageHandlers.back.postMessage("back");
+      // window.webkit.messageHandlers.back.showAlert("t", "m");
       
     } else {
       console.warn("WebView 환경이 아님");
