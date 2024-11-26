@@ -3,7 +3,7 @@
   display : flex;
   align-items: center;
   text-align: center;
-  height: 50px;
+  height: 60px;
   background-color: #eeeeee;
 }
 
@@ -14,10 +14,40 @@
   margin-left: 18px;
   border: 1px solid #fff;
   border-color: lightgray;
-  border-radius: 16px;
-  height: 32px;
+  border-radius: 18px;
+  height: 38px;
   padding-left: 12px;
   padding-right: 8px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.clickedfilterTab{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: 18px;
+  border: 1px solid #fff;
+  border-color: black;
+  border-radius: 18px;
+  height: 38px;
+  padding-left: 12px;
+  padding-right: 12px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.initBtn{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: 18px;
+  border: 1px solid #fff;
+  border-color: lightgray;
+  border-radius: 18px;
+  height: 38px;
+  padding-left: 12px;
+  padding-right: 12px;
   cursor: pointer;
   background-color: white;
 }
@@ -47,38 +77,19 @@
 
 .overlay {
   position: fixed;
-  top: 150px;
+  top: 175px;
   left: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+  overflow: hidden;
 }
-
-.overlayContent {
-    display: flex;
-    background-color: white;
-    padding: 10px;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.filterItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: calc((100% / 3) - 8px);
-  height: 38px;
-  border: 1px solid #fff;
-  border-color: lightgray;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-/* filterItem 간격이 각각 8이고 싶어 */
 
 #filterArrowDown {
   width: 20px;
   height: 20px;
   margin-left: 4px;
+  visibility: visible;
 }
+
