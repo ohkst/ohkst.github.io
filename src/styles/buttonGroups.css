@@ -3,9 +3,12 @@
     display: flex;
     background-color: white;
     padding: 20px;
-    gap: 8px;
     flex-wrap: wrap;
 }
+
+  .overlayContent > * + * {
+    margin-right: 8px;
+  }
 
 .buttonItem {
   display: flex;

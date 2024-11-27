@@ -1,14 +1,16 @@
-
 .events {
     display: flex;
     position:relative;
     flex-direction: column;
     align-content: center;
-    gap: 15px;
     padding: 20px;
     overflow: hidden;
     line-height: 1;
 }
+
+.events > * + * {
+    margin-bottom: 15px;
+  }
 
 .event-card {
     width: 100%;
