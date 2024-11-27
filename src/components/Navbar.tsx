@@ -15,16 +15,50 @@ function Navbar() {
 
     } else if (window.webkit && 
       window.webkit.messageHandlers && 
-      window.webkit.messageHandlers.back &&
-      window.webkit.messageHandlers.iOS) {
+      window.webkit.messageHandlers.back) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
-      // window.webkit.messageHandlers.iOS.postMessage("iOS");
-      window.webkit.messageHandlers.back.postMessage("back");
-      // window.webkit.messageHandlers.back.showAlert("t", "m");
+      // window.webkit.messageHandlers.back.postMessage("back");
+
+      if (window.webkit.messageHandlers.moveEventDetail) {
+        window.webkit.messageHandlers.moveEventDetail.postMessage("");
+      }
+
+      if (window.webkit.messageHandlers.needLogin) {
+        window.webkit.messageHandlers.needLogin.postMessage("");
+      }
+
+      if (window.webkit.messageHandlers.getAccountAlias) {
+        window.webkit.messageHandlers.getAccountAlias.postMessage("");
+      }
+
+      if (window.webkit.messageHandlers.getAppNoticeList) {
+        window.webkit.messageHandlers.getAppNoticeList.postMessage("");
+      }
+
+      if (window.webkit.messageHandlers.getMobileNoticePopup) {
+        window.webkit.messageHandlers.getMobileNoticePopup.postMessage("");
+      }
+
+      if (window.webkit.messageHandlers.getAutoTradingCheck) {
+        window.webkit.messageHandlers.getAutoTradingCheck.postMessage("");
+      }
+
+      if (window.webkit.messageHandlers.getBankisStock) {
+        window.webkit.messageHandlers.getBankisStock.postMessage("");
+      }
+
+      if (window.webkit.messageHandlers.getBankisDollar) {
+        window.webkit.messageHandlers.getBankisDollar.postMessage("");
+      }
+
+      if (window.webkit.messageHandlers.getOverseasStock) {
+        window.webkit.messageHandlers.getOverseasStock.postMessage("");
+      }
+  
       
     } else {
-      console.warn("WebView 환경이 아님");
+      console.warn("Mobile 환경이 아님");
       navigate(-1);
     }
   };
