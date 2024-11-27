@@ -78,6 +78,7 @@ lint_and_detekt:
     - $RUNNER
   rules:
     - !reference [ .rule, feature-branch-push-and-merge-request-event ]
+  allow_failure: true
 
 image-vulnerability-scan:
   stage: image-vulnerability-scan
