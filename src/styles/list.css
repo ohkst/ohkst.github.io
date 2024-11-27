@@ -1,12 +1,18 @@
+
 .events {
     display: flex;
+    position:relative;
     flex-direction: column;
-    gap: 18px;
-    padding: 24px;
+    align-content: center;
+    gap: 15px;
+    padding: 20px;
+    overflow: hidden;
+    justify-content: center;
 }
 
 .event-card {
-    /* height: 10px; */
+    width: 100%;
+    height: calc((100vw)*0.44);
     border-radius: 8px; /* 이미지 둥근 모서리 */
 }
 
