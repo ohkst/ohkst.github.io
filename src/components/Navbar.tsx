@@ -14,11 +14,13 @@ function Navbar() {
       window.Android.showToast("안드로이드 네이티브 호출");
 
     } else if (window.webkit && 
-      window.webkit.messageHandlers && 
-      window.webkit.messageHandlers.back) {
+      window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
-      // window.webkit.messageHandlers.back.postMessage("back");
+
+      // if (window.webkit.messageHandlers.back) {
+      //   window.webkit.messageHandlers.back.postMessage("back");
+      // }
 
       if (window.webkit.messageHandlers.moveEventDetail) {
         window.webkit.messageHandlers.moveEventDetail.postMessage("");
