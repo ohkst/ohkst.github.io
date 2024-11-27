@@ -47,17 +47,13 @@ function Filters({ filterCategorys }: FiltersProps) {
         if (filterItemName !== default_value) {
           setActiveFilter(filterType);
           updateFilterCaption(filterType, filterItemName);
-          // setResetCount();
           setInitBtnVisible(true);
-          //updateFilterCaption이 적용된 filterBtn 개수만큼
-          // console.log(filterItemName+resetCount+1);
           console.log(resetCount);
         }
         else{
           setActiveFilter('');
           filterCategorys.map((category) =>
             updateFilterCaption(category.sort_type, category.name)
-          //filter count 하나씩 감소
           );
           setResetCount(resetCount-1);
         }
