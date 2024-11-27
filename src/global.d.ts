@@ -1,8 +1,11 @@
 interface Window {
+  // Android  
   Android?: {
     back: (message: string) => void;
     showToast: (message: string) => void;
   };
+  
+  // iOS
   webkit?: {
     messageHandlers?: {
       back?: {
@@ -41,4 +44,6 @@ interface Window {
       };
     };
   };
+
+  onNativeMessage?: (message: string) => void;
 }

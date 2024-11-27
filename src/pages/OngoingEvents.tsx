@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import EventCard, { EventCardProps } from "../components/EventCard";
 import Banner from "../components/Banner";
 
@@ -23,7 +23,7 @@ interface OngoingEventsProps {
 }
 
 function OngoingEvents({filterType, filterAvailable}:OngoingEventsProps) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [selectedCategory, ] = useState("all");
 
   const imageBase = "https://file.truefriend.com/Storage/mobile/event/eventQ";
@@ -51,9 +51,34 @@ function OngoingEvents({filterType, filterAvailable}:OngoingEventsProps) {
     return () => window.removeEventListener('scroll', handleSroll);
   }, []);
 
+  useEffect(() => {
+    // 네이티브에서 React로 데이터를 전달받는 함수
+    window.onNativeMessage = (message: string) => {
+      console.log("네이티브에서 전달받은 메시지:", message);
+    };
+  }, []);
+
   const handleEventClick = (index: number) => {
     const selectedEvent = filteredList[index];
-    navigate(`/event/${selectedEvent.id}`, { state: { title: selectedEvent.title } });
+    // navigate(`/event/${selectedEvent.id}`, { state: { title: selectedEvent.title } });
+
+    console.warn(selectedEvent);
+
+    if (window.Android) {
+      // Android 네이티브 함수 호출
+      console.warn("Android");
+      window.Android.showToast("안드로이드 네이티브 호출");
+
+    } else if (window.webkit && 
+      window.webkit.messageHandlers) {
+      // iOS 네이티브 함수 호출
+      console.warn("iOS");
+
+      if (window.webkit.messageHandlers.back) {
+        window.webkit.messageHandlers.back.postMessage("back");
+      }
+
+      }
   };
 
   return (
