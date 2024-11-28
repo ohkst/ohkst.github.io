@@ -12,13 +12,13 @@ function ButtonGroups({ buttons, onButtonClick }: ButtonsProps) {
         <div className="overlayContent">
             {buttons.map((button, index) => (
                 
-                <button
+                <div
                 key={index}
                 className="buttonItem"
                 onClick={() => onButtonClick && onButtonClick(buttons[index])}
                 >
                 {button}
-                </button>
+                </div>
                 
             ))}
         </div>
