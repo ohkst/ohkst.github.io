@@ -1,10 +1,18 @@
 interface Window {
-  // Android  
+  // Android
   Android?: {
     back: (message: string) => void;
-    showToast: (message: string) => void;
+    moveEventDetail: (message: string) => void;
+    needLogin: (message: string) => void;
+    getAccountAlias: (message: string) => void;
+    getAppNoticeList: (message: string) => void;
+    getMobileNoticePopup: (message: string) => void;
+    getAutoTradingCheck: (message: string) => void;
+    getBankisStock: (message: string) => void;
+    getBankisDollar: (message: string) => void;
+    getOverseasStock: (message: string) => void;
   };
-  
+
   // iOS
   webkit?: {
     messageHandlers?: {
@@ -19,7 +27,6 @@ interface Window {
       needLogin?: {
         postMessage: (message: string) => void;
       };
-
 
       getAccountAlias?: {
         postMessage: (message: string) => void;

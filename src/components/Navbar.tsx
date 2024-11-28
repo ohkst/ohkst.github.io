@@ -11,7 +11,17 @@ function Navbar() {
     if (window.Android) {
       // Android 네이티브 함수 호출
       console.warn("Android");
-      window.Android.showToast("안드로이드 네이티브 호출");
+      // window.Android.back("");
+      window.Android.moveEventDetail("");
+      window.Android.needLogin("");
+      window.Android.getAccountAlias("");
+      window.Android.getAppNoticeList("");
+      window.Android.getMobileNoticePopup("");
+      window.Android.getAutoTradingCheck("");
+      window.Android.getBankisStock("");
+      window.Android.getBankisDollar("");
+      window.Android.getOverseasStock("");
+
 
     } else if (window.webkit && 
       window.webkit.messageHandlers) {
