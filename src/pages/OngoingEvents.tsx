@@ -58,6 +58,31 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
     // 네이티브에서 React로 데이터를 전달받는 함수
     window.onNativeMessage = (message: string) => {
       console.log("네이티브에서 전달받은 메시지:", message);
+  
+      try {
+        // JSON 문자열 파싱
+        const parsedMessage = JSON.parse(message);
+  
+        // 파싱된 객체 확인
+        console.log("파싱된 JSON 객체:", parsedMessage);
+  
+        // 내용 접근 예시
+        const content = parsedMessage.content;
+        const key = parsedMessage.key;
+  
+        console.log("content:", content);
+        console.log("key:", key);
+  
+        // content 내부 데이터 접근
+        if (content) {
+          console.log("EVNT_OBJT_CUST_YN:", content.EVNT_OBJT_CUST_YN);
+          console.log("EVNT_OBJT_YN:", content.EVNT_OBJT_YN);
+          console.log("TR_BNF_OBJT_YN:", content.TR_BNF_OBJT_YN);
+          console.log("TR_BNF_PRDT_CD:", content.TR_BNF_PRDT_CD);
+        }
+      } catch (error) {
+        console.error("JSON 파싱 오류:", error);
+      }
     };
   }, []);
 
