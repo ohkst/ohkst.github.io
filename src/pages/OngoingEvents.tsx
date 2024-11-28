@@ -58,27 +58,26 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
     // 네이티브에서 React로 데이터를 전달받는 함수
     window.onNativeMessage = (message: string) => {
       console.log("네이티브에서 전달받은 메시지:", message);
-  
+
       try {
         // JSON 문자열 파싱
-        const parsedMessage = JSON.parse(message);
-  
+        const parsedData: EventListModel = JSON.parse(message);
+
         // 파싱된 객체 확인
-        console.log("파싱된 JSON 객체:", parsedMessage);
-  
+        console.log("파싱된 JSON 객체:", parsedData);
+
         // 내용 접근 예시
-        const content = parsedMessage.content;
-        const key = parsedMessage.key;
-  
+        const content = parsedData.content;
+        const key = parsedData.key;
+
         console.log("content:", content);
         console.log("key:", key);
-  
+
         // content 내부 데이터 접근
         if (content) {
-          console.log("EVNT_OBJT_CUST_YN:", content.EVNT_OBJT_CUST_YN);
-          console.log("EVNT_OBJT_YN:", content.EVNT_OBJT_YN);
-          console.log("TR_BNF_OBJT_YN:", content.TR_BNF_OBJT_YN);
-          console.log("TR_BNF_PRDT_CD:", content.TR_BNF_PRDT_CD);
+          parsedData.content.forEach((item) => {
+            console.log("title:", item.title)
+          });
         }
       } catch (error) {
         console.error("JSON 파싱 오류:", error);
@@ -105,6 +104,62 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       }
     }
   };
+
+  // Root 모델
+  interface EventListModel {
+    key: string; // 이벤트 키
+    content: EventItem[]; // Content 배열
+    count: string; // 총 개수
+  }
+
+  // Content 배열의 각 항목 정의
+  interface EventItem {
+    createdate: string; // 생성 날짜 (YYYYMMDDHHMMSS 형식)
+    fromdate: string; // 시작 날짜 (YYYYMMDD 형식)
+    todate: string; // 종료 날짜 (YYYYMMDD 형식)
+    na_view_type: string; // 뷰 타입
+    na_event_yn: string; // 이벤트 여부 (Y/N)
+    na_event_summary: string; // 이벤트 요약
+    num: string; // 이벤트 번호
+    reserved: string; // 예약된 데이터
+    na_benefit_yn: string; // 혜택 여부 (Y/N)
+    na_event_type: string; // 이벤트 타입
+    na_event_code: string; // 이벤트 코드
+    title: string; // 이벤트 제목
+    na_event_terms: string; // 이벤트 약관 (PDF 파일 등 경로)
+    na_list_img: string; // 리스트 이미지 경로
+    list_img: string; // 리스트 이미지 경로
+    na_lscreen_img: string; // 화면 이미지 경로
+    listorder: string; // 리스트 순서
+  }
+
+  // 타입 사용 예시
+  // const exampleData: RootModel = {
+  //   key: "event/mobile_notice_popup",
+  //   content: [
+  //     {
+  //       createdate: "20241126163217",
+  //       fromdate: "20241127",
+  //       todate: "20250115",
+  //       na_view_type: "02",
+  //       na_event_yn: "Y",
+  //       na_event_summary: "",
+  //       num: "924",
+  //       reserved: "",
+  //       na_benefit_yn: "Y",
+  //       na_event_type: "02",
+  //       na_event_code: "",
+  //       title: "BanKIS 해외주식 주간 미션 이벤트",
+  //       na_event_terms: "",
+  //       na_list_img: "",
+  //       list_img: "",
+  //       na_lscreen_img: "",
+  //       listorder: "5",
+  //     },
+  //     // 추가 항목들...
+  //   ],
+  //   count: "0035",
+  // };
 
   return (
     <div className="events">
