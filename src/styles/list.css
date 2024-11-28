@@ -6,11 +6,8 @@
     padding: 20px;
     overflow: hidden;
     line-height: 1;
+    gap:15px;
 }
-
-.events > * + * {
-    margin-bottom: 15px;
-  }
 
 .event-card {
     width: 100%;
