@@ -12,9 +12,9 @@ Object.freeze(APIEndPoint);
 interface EventInfo {
   id: number;
   imagePath: string;
-  title: string|null;
-  dateRange: string|null;
-  ongoing : string|null;
+  title: string | null;
+  dateRange: string | null;
+  ongoing: string | null;
 }
 
 interface OngoingEventsProps {
@@ -22,9 +22,9 @@ interface OngoingEventsProps {
   filterAvailable: string;
 }
 
-function OngoingEvents({filterType, filterAvailable}:OngoingEventsProps) {
+function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
   // const navigate = useNavigate();
-  const [selectedCategory, ] = useState("all");
+  const [selectedCategory] = useState("all");
 
   const imageBase = "https://file.truefriend.com/Storage/mobile/event/eventQ";
   const combinedEvents = Array.from({ length: 20 }, (_, index) => ({
@@ -36,19 +36,22 @@ function OngoingEvents({filterType, filterAvailable}:OngoingEventsProps) {
   }));
 
   const isBannerVisibleRef = useRef(false);
-  const [events,  ] = useState<EventInfo[]>(combinedEvents);
-  
-  const filteredList = selectedCategory === "all"? events : events.filter((events)=>events.ongoing===selectedCategory);
+  const [events] = useState<EventInfo[]>(combinedEvents);
 
-  useEffect(()=>{
+  const filteredList =
+    selectedCategory === "all"
+      ? events
+      : events.filter((events) => events.ongoing === selectedCategory);
+
+  useEffect(() => {
     const handleSroll = () => {
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-    isBannerVisibleRef.current = clientHeight >= scrollHeight - scrollTop;
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      isBannerVisibleRef.current = clientHeight >= scrollHeight - scrollTop;
     };
-    window.addEventListener('scroll', handleSroll);
-    return () => window.removeEventListener('scroll', handleSroll);
+    window.addEventListener("scroll", handleSroll);
+    return () => window.removeEventListener("scroll", handleSroll);
   }, []);
 
   useEffect(() => {
@@ -67,18 +70,15 @@ function OngoingEvents({filterType, filterAvailable}:OngoingEventsProps) {
     if (window.Android) {
       // Android 네이티브 함수 호출
       console.warn("Android");
-      window.Android.showToast("안드로이드 네이티브 호출");
-
-    } else if (window.webkit && 
-      window.webkit.messageHandlers) {
+      window.Android.back("");
+    } else if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
 
       if (window.webkit.messageHandlers.back) {
         window.webkit.messageHandlers.back.postMessage("back");
       }
-
-      }
+    }
   };
 
   return (
@@ -88,11 +88,16 @@ function OngoingEvents({filterType, filterAvailable}:OngoingEventsProps) {
           ...event,
           onClick: () => handleEventClick(index),
         };
-        return <EventCard key={index} {...props}/>;
+        return <EventCard key={index} {...props} />;
       })}
-      {
-      (isBannerVisibleRef.current&&
-         <Banner bannerName={'eventBanner'} pagination={0} destination={"https://m.koreainvestment.com/app/mtsrenewal.jsp?type=06&SSO_SCREENNO=4706"}/>
+      {isBannerVisibleRef.current && (
+        <Banner
+          bannerName={"eventBanner"}
+          pagination={0}
+          destination={
+            "https://m.koreainvestment.com/app/mtsrenewal.jsp?type=06&SSO_SCREENNO=4706"
+          }
+        />
       )}
     </div>
   );
