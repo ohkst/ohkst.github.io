@@ -88,7 +88,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
           console.log("title:", content)
         }
       } catch (error) {
-        console.error("JSON 파싱 오류:", error);
+        console.error("JSON 파싱 오류:", "error");
       }
 
       try {
@@ -110,7 +110,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
             console.log("title:", content)
         }
       } catch (error) {
-        console.error("JSON 파싱 오류:", error);
+        console.error("JSON 파싱 오류:", "error");
       }
 
       try {
@@ -134,7 +134,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
             });
         }
       } catch (error) {
-        console.error("JSON 파싱 오류:", error);
+        console.error("JSON 파싱 오류:", "error");
       }
 
       try {
@@ -156,7 +156,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
             console.log("title:", content)
         }
       } catch (error) {
-        console.error("JSON 파싱 오류:", error);
+        console.error("JSON 파싱 오류:", "error");
       }
 
       try {
@@ -178,7 +178,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
             console.log("title:", content)
         }
       } catch (error) {
-        console.error("JSON 파싱 오류:", error);
+        console.error("JSON 파싱 오류:", "error");
       }
 
       try {
@@ -200,7 +200,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
             console.log("title:", content)
         }
       } catch (error) {
-        console.error("JSON 파싱 오류:", error);
+        console.error("JSON 파싱 오류:", "error");
       }
 
       try {
@@ -222,7 +222,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
             console.log("title:", content)
         }
       } catch (error) {
-        console.error("JSON 파싱 오류:", error);
+        console.error("JSON 파싱 오류:", "error");
       }
       
     };

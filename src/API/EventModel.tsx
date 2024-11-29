@@ -100,13 +100,13 @@ export const OverseasStockSchema = z.object({
 const EmptyObjectSchema = z.object({});
 
 // EventListModel 스키마 생성
-export const AccountItemModel = createListModelSchema(EmptyObjectSchema, AccountItemSchema);
-export const AppNoticeListModel = createListModelSchema(EmptyObjectSchema, AppNoticeListSchema);
+export const AccountItemModel = createListModelSchema(AccountItemSchema, EmptyObjectSchema);
+export const AppNoticeListModel = createListModelSchema(AppNoticeListSchema, EmptyObjectSchema);
 export const EventListModel = createListModelSchema(EventItemSchema, EmptyObjectSchema);
-export const AutoTradingModel = createListModelSchema(AutoTradingSchema, AutoTradingSchema);
-export const BankisStockModel = createListModelSchema(BankisStockSchema, BankisStockSchema);
-export const BankisDollarModel = createListModelSchema(BankisDollarSchema, BankisDollarSchema);
-export const OverseasStockModel = createListModelSchema(OverseasStockSchema, OverseasStockSchema);
+export const AutoTradingModel = createListModelSchema(EmptyObjectSchema, AutoTradingSchema);
+export const BankisStockModel = createListModelSchema(EmptyObjectSchema, BankisStockSchema);
+export const BankisDollarModel = createListModelSchema(EmptyObjectSchema, BankisDollarSchema);
+export const OverseasStockModel = createListModelSchema(EmptyObjectSchema, OverseasStockSchema);
 // ...
 
 // 타입 추출 (제네릭 타입으로 동작)
