@@ -2,7 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 // import { useNavigate } from "react-router-dom";
 import EventCard, { EventCardProps } from "../components/EventCard";
 import Banner from "../components/Banner";
-import { EventListModelSchema} from '../API/EventModel';
+import {
+  AccountItemModel,
+  EventListModel,
+  AppNoticeListModel,
+  AutoTradingModel,
+  BankisStockModel,
+  BankisDollarModel,
+  OverseasStockModel
+} from '../API/EventModel';
 
 const APIEndPoint = {
   GetTest: "posts",
@@ -63,7 +71,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       try {
         // JSON 문자열 파싱
         // const parsedData: EventListModel<EventItem[]> = JSON.parse(message);
-        const parsedData = EventListModelSchema.parse(JSON.parse(message));
+        const parsedData = AccountItemModel.parse(JSON.parse(message));
         
         // 파싱된 객체 확인
         console.log("파싱된 JSON 객체:", parsedData);
@@ -77,13 +85,146 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
 
         // content 내부 데이터 접근
         if (content) {
-          parsedData.content.forEach((item) => {
-            console.log("title:", item.title)
-          });
+          console.log("title:", content)
         }
       } catch (error) {
         console.error("JSON 파싱 오류:", error);
       }
+
+      try {
+        // JSON 문자열 파싱
+        const parsedData = AppNoticeListModel.parse(JSON.parse(message));
+        
+        // 파싱된 객체 확인
+        console.log("파싱된 JSON 객체:", parsedData);
+
+        // 내용 접근 예시
+        const content = parsedData.content;
+        const key = parsedData.key;
+
+        console.log("content:", content);
+        console.log("key:", key);
+
+        // content 내부 데이터 접근
+        if (content) {
+            console.log("title:", content)
+        }
+      } catch (error) {
+        console.error("JSON 파싱 오류:", error);
+      }
+
+      try {
+        // JSON 문자열 파싱
+        const parsedData = EventListModel.parse(JSON.parse(message));
+        
+        // 파싱된 객체 확인
+        console.log("파싱된 JSON 객체:", parsedData);
+
+        // 내용 접근 예시
+        const content = parsedData.content;
+        const key = parsedData.key;
+
+        console.log("content:", content);
+        console.log("key:", key); 
+
+        // content 내부 데이터 접근
+        if (Array.isArray(content)) {
+            content.forEach((item) => {
+              console.log("title:", item.title)
+            });
+        }
+      } catch (error) {
+        console.error("JSON 파싱 오류:", error);
+      }
+
+      try {
+        // JSON 문자열 파싱
+        const parsedData = AutoTradingModel.parse(JSON.parse(message));
+        
+        // 파싱된 객체 확인
+        console.log("파싱된 JSON 객체:", parsedData);
+
+        // 내용 접근 예시
+        const content = parsedData.content;
+        const key = parsedData.key;
+
+        console.log("content:", content);
+        console.log("key:", key);
+
+        // content 내부 데이터 접근
+        if (content) {
+            console.log("title:", content)
+        }
+      } catch (error) {
+        console.error("JSON 파싱 오류:", error);
+      }
+
+      try {
+        // JSON 문자열 파싱
+        const parsedData = BankisStockModel.parse(JSON.parse(message));
+        
+        // 파싱된 객체 확인
+        console.log("파싱된 JSON 객체:", parsedData);
+
+        // 내용 접근 예시
+        const content = parsedData.content;
+        const key = parsedData.key;
+
+        console.log("content:", content);
+        console.log("key:", key);
+
+        // content 내부 데이터 접근
+        if (content) {
+            console.log("title:", content)
+        }
+      } catch (error) {
+        console.error("JSON 파싱 오류:", error);
+      }
+
+      try {
+        // JSON 문자열 파싱
+        const parsedData = BankisDollarModel.parse(JSON.parse(message));
+        
+        // 파싱된 객체 확인
+        console.log("파싱된 JSON 객체:", parsedData);
+
+        // 내용 접근 예시
+        const content = parsedData.content;
+        const key = parsedData.key;
+
+        console.log("content:", content);
+        console.log("key:", key);
+
+        // content 내부 데이터 접근
+        if (content) {
+            console.log("title:", content)
+        }
+      } catch (error) {
+        console.error("JSON 파싱 오류:", error);
+      }
+
+      try {
+        // JSON 문자열 파싱
+        const parsedData = OverseasStockModel.parse(JSON.parse(message));
+        
+        // 파싱된 객체 확인
+        console.log("파싱된 JSON 객체:", parsedData);
+
+        // 내용 접근 예시
+        const content = parsedData.content;
+        const key = parsedData.key;
+
+        console.log("content:", content);
+        console.log("key:", key);
+
+        // content 내부 데이터 접근
+        if (content) {
+            console.log("title:", content)
+        }
+      } catch (error) {
+        console.error("JSON 파싱 오류:", error);
+      }
+      
     };
   }, []);
 
