@@ -1,27 +1,40 @@
 // EventModel.ts
 import { z } from "zod";
 
-export interface TestPostRequestData {
-  key: number;
-  title: string;
-  value: number;
-}
-
-export interface TestPostResponseData {
-  key: number;
-  title: string;
-  value: number;
-}
-
-// 제네릭 형태의 스키마 생성 함수
-export const createListModelSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
+// 제네릭 기본 구조
+export const createListModelSchema = <
+  T extends z.ZodTypeAny,
+  U extends z.ZodTypeAny
+>(
+  itemSchema: T, // 배열의 요소 스키마
+  objectSchema: U // 객체 스키마
+) =>
   z.object({
-    key: z.string(),
-    content: z.array(itemSchema), // 제네릭 타입의 배열
-    count: z.string(),
+    key: z.string(), // 공통 필드
+    content: z.union([z.array(itemSchema), objectSchema]), // 배열 또는 객체
+    count: z.string().optional(), // count는 선택적 필드
   });
 
-// EventItem 스키마 정의
+// 계좌 정보
+export const AccountItemSchema = z.object({
+  ACNT_PRDT_NAME: z.string(), // 계좌 상품 이름
+  ACNT_INQR_SEQ: z.string(), // 계좌 조회 순서
+  SMPH_AGRM_YN: z.string(), // 단순 약정 여부
+  RSVR_FIELD40: z.string().optional(), // 예약 필드 (옵션)
+  OPEN_ORG_NAME: z.string(), // 계좌 개설 기관 이름
+  CANO: z.string(), // 계좌 번호
+  ACNT_ADMN_ORG_NAME: z.string(), // 계좌 관리 기관 이름
+  CMA_ACNT_YN: z.string(), // CMA 계좌 여부
+  ACNT_ADMN_ORGNO: z.string(), // 계좌 관리 기관 번호
+  OPEN_ORGNO: z.string(), // 개설 기관 번호
+  ACNT_PRDT_CD: z.string(), // 계좌 상품 코드
+  ACNT_BYNM_NAME: z.string().optional(), // 계좌 별칭 (옵션)
+  AFRS_PMSS_RNGE_DVSN_CD: z.string(), // 허가 범위 코드
+  OVRS_SCTY_TR_PSBL_YN: z.string(), // 해외 증권 거래 가능 여부
+  CSAC_NAME: z.string(), // 고객명
+});
+
+// 이벤트 리스트 아이템
 export const EventItemSchema = z.object({
   createdate: z.string(), // 생성 날짜 (YYYYMMDDHHMMSS 형식)
   fromdate: z.string(), // 시작 날짜 (YYYYMMDD 형식)
@@ -42,38 +55,60 @@ export const EventItemSchema = z.object({
   listorder: z.string(), // 리스트 순서
 });
 
+// 앱 공지 사항
+export const AppNoticeListSchema = z.object({
+  num: z.string(), // 공지 번호
+  prior_gb: z.string(), // 우선순위 구분
+  data_dt: z.string(), // 데이터 날짜 (YYYYMMDDHHMMSS 형식)
+  msg_title: z.string(), // 메시지 제목
+  oss: z.string(), // OSS 여부
+  hits: z.string(), // 조회수
+});
+
+// 자동 주문 정보
+export const AutoTradingSchema = z.object({
+  AGREE_GB: z.string(), // 동의 구분
+  INFO_GB: z.string(), // 정보 구분
+  DATA_DT: z.string(), // 데이터 날짜
+  SID: z.string(), // 세션 ID
+  DATA_TM: z.string(), // 데이터 시간
+  RCD: z.string(), // 결과 코드
+});
+
+// 뱅키스 주식 지급 이벤트
+export const BankisStockSchema = z.object({
+  EVNT_OBJT_CUST_YN: z.string(), // 이벤트 대상 고객 여부
+  EVNT_OBJT_YN: z.string(), // 이벤트 대상 여부
+  TR_BNF_OBJT_YN: z.string(), // 거래 혜택 대상 여부
+  TR_BNF_PRDT_CD: z.string(), // 거래 혜택 상품 코드
+});
+
+// 뱅키스 달러 지급 이벤트
+export const BankisDollarSchema = z.object({
+  RSLT_CD: z.string(), // 결과 코드
+  EVNT_OBJT_YN: z.string(), // 이벤트 대상 여부
+  BANKIS_EVNT_KIND_CD: z.string(), // 이벤트 종류 코드
+  EVNT_RQST_YN: z.string(), // 이벤트 요청 여부
+});
+
+// 해외주식 이벤트 대상 고객 조회
+export const OverseasStockSchema = z.object({
+  EVNT_CUST_DVSN_NAME: z.string(), // 결과 코드
+  EVNT_CUST_DVSN_CD: z.string(), // 이벤트 대상 여부
+});
+
+const EmptyObjectSchema = z.object({});
+
 // EventListModel 스키마 생성
-export const EventListModelSchema = createListModelSchema(EventItemSchema);
+export const AccountItemModel = createListModelSchema(EmptyObjectSchema, AccountItemSchema);
+export const AppNoticeListModel = createListModelSchema(EmptyObjectSchema, AppNoticeListSchema);
+export const EventListModel = createListModelSchema(EventItemSchema, EmptyObjectSchema);
+export const AutoTradingModel = createListModelSchema(AutoTradingSchema, AutoTradingSchema);
+export const BankisStockModel = createListModelSchema(BankisStockSchema, BankisStockSchema);
+export const BankisDollarModel = createListModelSchema(BankisDollarSchema, BankisDollarSchema);
+export const OverseasStockModel = createListModelSchema(OverseasStockSchema, OverseasStockSchema);
 // ...
 
 // 타입 추출 (제네릭 타입으로 동작)
-export type EventItemZod = z.infer<typeof EventItemSchema>;
-export type EventListModelZod = z.infer<typeof EventListModelSchema>;
-
-// 타입 사용 예시
-// const exampleData: RootModel = {
-//   key: "event/mobile_notice_popup",
-//   content: [
-//     {
-//       createdate: "20241126163217",
-//       fromdate: "20241127",
-//       todate: "20250115",
-//       na_view_type: "02",
-//       na_event_yn: "Y",
-//       na_event_summary: "",
-//       num: "924",
-//       reserved: "",
-//       na_benefit_yn: "Y",
-//       na_event_type: "02",
-//       na_event_code: "",
-//       title: "BanKIS 해외주식 주간 미션 이벤트",
-//       na_event_terms: "",
-//       na_list_img: "",
-//       list_img: "",
-//       na_lscreen_img: "",
-//       listorder: "5",
-//     },
-//     // 추가 항목들...
-//   ],
-//   count: "0035",
-// };
+// export type EventItemZod = z.infer<typeof EventItemSchema>;
+// export type EventListModelZod = z.infer<typeof EventListModel>;
