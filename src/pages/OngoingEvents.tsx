@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import EventCard, { EventCardProps } from "../components/EventCard";
 import Banner from "../components/Banner";
 import {
-  AccountItemModel,
+  AccountListModel,
   EventListModel,
   AppNoticeListModel,
   AutoTradingModel,
@@ -71,7 +71,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       try {
         // JSON 문자열 파싱
         // const parsedData: EventListModel<EventItem[]> = JSON.parse(message);
-        const parsedData = AccountItemModel.parse(JSON.parse(message));
+        const parsedData = AccountListModel.parse(JSON.parse(message));
         
         // 파싱된 객체 확인
         console.log("파싱된 JSON 객체:", parsedData);
