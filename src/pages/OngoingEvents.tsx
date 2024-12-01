@@ -66,10 +66,10 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
   useEffect(() => {
 
     const modelMapping = {
-      "event/account_list": AccountListModel,
+      "event/account_alias": AccountListModel,
       "event/app_notice_list": AppNoticeListModel,
-      "event/event_list": EventListModel,
-      "event/auto_trading": AutoTradingModel,
+      "event/mobile_notice_popup": EventListModel,
+      "event/auto_trading_check": AutoTradingModel,
       "event/bankis_stock": BankisStockModel,
       "event/bankis_dollar": BankisDollarModel,
       "event/overseas_stock": OverseasStockModel,
