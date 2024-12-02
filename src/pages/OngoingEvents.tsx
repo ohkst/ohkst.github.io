@@ -40,20 +40,23 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       ? eventList
       : eventList.filter((event) => event.na_event_type !== selectedCategory);
 
-  if (window.Android) {
-    // Android 네이티브 함수 호출
-    console.warn("Android");
-    window.Android.getMobileNoticePopup("");
-  } else if (window.webkit && window.webkit.messageHandlers) {
-    // iOS 네이티브 함수 호출
-    console.warn("iOS");
-
-    if (window.webkit.messageHandlers.getMobileNoticePopup) {
-      window.webkit.messageHandlers.getMobileNoticePopup.postMessage("");
+  useEffect(() => {
+    if (window.Android) {
+      // Android 네이티브 함수 호출
+      console.warn("Android");
+      window.Android.getMobileNoticePopup("");
+    } else if (window.webkit && window.webkit.messageHandlers) {
+      // iOS 네이티브 함수 호출
+      console.warn("iOS");
+  
+      if (window.webkit.messageHandlers.getMobileNoticePopup) {
+        window.webkit.messageHandlers.getMobileNoticePopup.postMessage("");
+      }
+    } else {
+      console.warn("Mobile 환경이 아님");
     }
-  } else {
-    console.warn("Mobile 환경이 아님");
-  }
+
+  }, []);  
 
   useEffect(() => {
     const handleSroll = () => {
