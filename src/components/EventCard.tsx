@@ -1,10 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import {
-  EventListItemType
-} from "../API/EventModel";
-
 export interface EventCardProps {
   index: number;
   num: string;
