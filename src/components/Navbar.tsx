@@ -1,7 +1,7 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import backIcon from '../images/ic_navi_back_24.png';
+import backIcon from "../images/ic_navi_back_24.png";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -21,30 +21,13 @@ function Navbar() {
       window.Android.getBankisStock("");
       window.Android.getBankisDollar("");
       window.Android.getOverseasStock("");
-
-
-    } else if (window.webkit && 
-      window.webkit.messageHandlers) {
+    } else if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
 
-      // if (window.webkit.messageHandlers.back) {
-      //   window.webkit.messageHandlers.back.postMessage("back");
-      // }
-
-      // if (window.webkit.messageHandlers.moveEventDetail) {
-      //   window.webkit.messageHandlers.moveEventDetail.postMessage("");
-      // }
-
-      // if (window.webkit.messageHandlers.needLogin) {
-      //   window.webkit.messageHandlers.needLogin.postMessage("");
-      // }
-
-      if (window.webkit.messageHandlers.getOverseasStock) {
-        window.webkit.messageHandlers.getOverseasStock.postMessage("");
+      if (window.webkit.messageHandlers.back) {
+        window.webkit.messageHandlers.back.postMessage("back");
       }
-  
-      
     } else {
       console.warn("Mobile 환경이 아님");
       navigate(-1);
@@ -52,8 +35,7 @@ function Navbar() {
   };
 
   const handleBackButtonClick1 = () => {
-    if (window.webkit && 
-      window.webkit.messageHandlers) {
+    if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
 
@@ -64,8 +46,7 @@ function Navbar() {
   };
 
   const handleBackButtonClick2 = () => {
-    if (window.webkit && 
-      window.webkit.messageHandlers) {
+    if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
 
@@ -76,8 +57,7 @@ function Navbar() {
   };
 
   const handleBackButtonClick3 = () => {
-    if (window.webkit && 
-      window.webkit.messageHandlers) {
+    if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
 
@@ -88,8 +68,7 @@ function Navbar() {
   };
 
   const handleBackButtonClick4 = () => {
-    if (window.webkit && 
-      window.webkit.messageHandlers) {
+    if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
 
@@ -100,8 +79,7 @@ function Navbar() {
   };
 
   const handleBackButtonClick5 = () => {
-    if (window.webkit && 
-      window.webkit.messageHandlers) {
+    if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
 
@@ -112,8 +90,7 @@ function Navbar() {
   };
 
   const handleBackButtonClick6 = () => {
-    if (window.webkit && 
-      window.webkit.messageHandlers) {
+    if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
 
@@ -124,12 +101,14 @@ function Navbar() {
   };
 
   const titleMap: { [key: string]: string } = {
-    '/': '이벤트',
-    '/event/:id': '이벤트 상세',
+    "/": "이벤트",
+    "/event/:id": "이벤트 상세",
   };
 
   const getTitleName = () => {
-    return location.pathname.startsWith('/event/') ? '이벤트 상세' : titleMap[location.pathname];
+    return location.pathname.startsWith("/event/")
+      ? "이벤트 상세"
+      : titleMap[location.pathname];
   };
 
   return (
