@@ -14,13 +14,15 @@ function Banner({
   }: BannerProps) {
     console.log('banner');
 
-    const handleBannerClick = () => {
-        window.open(destination);
+    const handleBannerClick = (destination: string) => {
+      if (window.Android) {
+        window.Android.moveScreen(destination);
+      }
       };
 
     return (
       <label>
-        <img className={bannerName} onClick={handleBannerClick} alt=''/>
+        <img className={bannerName} onClick={() => handleBannerClick(destination)} alt=''/>
       </label>
     );
   }

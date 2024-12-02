@@ -3,6 +3,7 @@ interface Window {
   Android?: {
     back: (message: string) => void;
     moveEventDetail: (message: string) => void;
+    moveScreen: (message: string) => void;
     needLogin: (message: string) => void;
     getAccountAlias: (message: string) => void;
     getAppNoticeList: (message: string) => void;
