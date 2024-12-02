@@ -52,6 +52,21 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       ? events
       : events.filter((events) => events.ongoing === selectedCategory);
 
+  if (window.Android) {
+    // Android 네이티브 함수 호출
+    console.warn("Android");
+    window.Android.getMobileNoticePopup("");
+  } else if (window.webkit && window.webkit.messageHandlers) {
+    // iOS 네이티브 함수 호출
+    console.warn("iOS");
+
+    if (window.webkit.messageHandlers.getOverseasStock) {
+      window.webkit.messageHandlers.getOverseasStock.postMessage("");
+    }
+  } else {
+    console.warn("Mobile 환경이 아님");
+  }
+
   useEffect(() => {
     const handleSroll = () => {
       const scrollTop = document.documentElement.scrollTop;
@@ -62,9 +77,8 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
     window.addEventListener("scroll", handleSroll);
     return () => window.removeEventListener("scroll", handleSroll);
   }, []);
-  
-  useEffect(() => {
 
+  useEffect(() => {
     const modelMapping = {
       "event/account_alias": AccountListModel,
       "event/app_notice_list": AppNoticeListModel,
@@ -101,32 +115,11 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
     };
   }, []);
 
-  const handleEventClick = (index: number) => {
-    const selectedEvent = filteredList[index];
-    // navigate(`/event/${selectedEvent.id}`, { state: { title: selectedEvent.title } });
-
-    console.warn(selectedEvent);
-
-    if (window.Android) {
-      // Android 네이티브 함수 호출
-      console.warn("Android");
-      window.Android.back("");
-    } else if (window.webkit && window.webkit.messageHandlers) {
-      // iOS 네이티브 함수 호출
-      console.warn("iOS");
-
-      if (window.webkit.messageHandlers.back) {
-        window.webkit.messageHandlers.back.postMessage("back");
-      }
-    }
-  };
-
   return (
     <div className="events">
       {filteredList.map((event, index) => {
         const props: EventCardProps = {
           ...event,
-          onClick: () => handleEventClick(index),
         };
         return <EventCard key={index} {...props} />;
       })}
