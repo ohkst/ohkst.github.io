@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 // import { useNavigate } from "react-router-dom";
-import EventCard from "../components/EventCard";
+import EventCard, { EventCardProps } from "../components/EventCard";
 import Banner from "../components/Banner";
 import {
   AccountListModel,
@@ -13,29 +13,19 @@ import {
   EventListItemType
 } from "../API/EventModel";
 
-// interface EventInfo {
-//   id: number;
-//   imagePath: string;
-//   title: string | null;
-//   dateRange: string | null;
-//   ongoing: string | null;
-// }
-
 interface OngoingEventsProps {
   filterType: string;
   filterAvailable: string;
 }
 
 function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
-  // const navigate = useNavigate();
   const [selectedCategory] = useState("all");
 
   const [eventList, setEventList] = useState<EventListItemType[]>([]);
 
   const isBannerVisibleRef = useRef(false);
-  // const [events] = useState<EventInfo[]>(combinedEvents);
 
-  const filteredList =
+  const filteredList: EventListItemType[] =
     selectedCategory === "all"
       ? eventList
       : eventList.filter((event) => event.na_event_type !== selectedCategory);
@@ -48,15 +38,14 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
     } else if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
-  
+
       if (window.webkit.messageHandlers.getMobileNoticePopup) {
         window.webkit.messageHandlers.getMobileNoticePopup.postMessage("");
       }
     } else {
       console.warn("Mobile 환경이 아님");
     }
-
-  }, []);  
+  }, []);
 
   useEffect(() => {
     const handleSroll = () => {
@@ -100,8 +89,8 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
 
         // 필요한 경우 전체 데이터 파싱
         const parsedData = EventListModel.parse(JSON.parse(message));
-        const parsedEventList = parsedData.content
-        setEventList(parsedEventList)
+        const parsedEventList = parsedData.content;
+        setEventList(parsedEventList);
 
         console.log("파싱된 JSON 객체:", parsedData);
         console.log("eventList:", parsedEventList);
@@ -114,9 +103,14 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
 
   return (
     <div className="events">
-      {filteredList.map((event, index) => {
-        const props: EventListItemType = {
-          ...event,
+      {filteredList.map((event: EventListItemType, index) => {
+      
+        const props: EventCardProps = {
+          index: index,
+          num: event.num,
+          imagePath: "",
+          title: event.title,
+          createdate: event.createdate,
         };
         return <EventCard key={index} {...props} />;
       })}
@@ -134,4 +128,3 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
 }
 
 export default OngoingEvents;
-
