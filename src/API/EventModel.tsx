@@ -117,6 +117,5 @@ export const BankisDollarModel = createObjectModelSchema(BankisDollarEvent);
 export const OverseasStockModel = createObjectModelSchema(OverseasStockEvent);
 // ...
 
-// 타입 추출 (제네릭 타입으로 동작)
-// export type EventItemZod = z.infer<typeof EventItemSchema>;
+export type EventListItemType = z.infer<typeof EventListItem>;
 // export type EventListModelZod = z.infer<typeof EventListModel>;
