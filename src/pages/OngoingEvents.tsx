@@ -60,8 +60,8 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
     // iOS 네이티브 함수 호출
     console.warn("iOS");
 
-    if (window.webkit.messageHandlers.getOverseasStock) {
-      window.webkit.messageHandlers.getOverseasStock.postMessage("");
+    if (window.webkit.messageHandlers.getMobileNoticePopup) {
+      window.webkit.messageHandlers.getMobileNoticePopup.postMessage("");
     }
   } else {
     console.warn("Mobile 환경이 아님");
