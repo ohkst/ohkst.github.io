@@ -13,6 +13,7 @@ function Navbar() {
       console.warn("Android");
       window.Android.back("");
       // window.Android.moveEventDetail("");
+      // window.Android.moveScreen("");
       // window.Android.needLogin("");
       // window.Android.getAccountAlias("");
       // window.Android.getAppNoticeList("");

@@ -119,7 +119,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
           bannerName={"eventBanner"}
           pagination={0}
           destination={
-            "https://m.koreainvestment.com/app/mtsrenewal.jsp?type=06&SSO_SCREENNO=4706"
+            "4706"
           }
         />
       )}
