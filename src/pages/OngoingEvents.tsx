@@ -111,6 +111,9 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
           imagePath: "",
           title: event.title,
           createdate: event.createdate,
+          todate: event.todate,
+          fromdate: event.fromdate,
+          na_view_type: event.na_view_type
         };
         return <EventCard key={index} {...props} />;
       })}
