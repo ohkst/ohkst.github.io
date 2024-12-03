@@ -113,7 +113,10 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
           createdate: event.createdate,
           todate: event.todate,
           fromdate: event.fromdate,
-          na_view_type: event.na_view_type
+          na_view_type: event.na_view_type,
+          na_event_summary: event.na_event_summary,
+          na_event_terms: event.na_event_terms,
+          na_event_code: event.na_event_code
         };
         return <EventCard key={index} {...props} />;
       })}

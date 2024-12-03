@@ -1,6 +1,6 @@
 import React from "react";
 import { format, parse } from "date-fns";
-import { ko } from "date-fns/locale"
+import { ko } from "date-fns/locale";
 // import { useNavigate } from "react-router-dom";
 
 export interface EventCardProps {
@@ -12,12 +12,15 @@ export interface EventCardProps {
   todate: string | null;
   fromdate: string | null;
   na_view_type: string | null;
+  na_event_summary: string | null;
+  na_event_terms: string | null;
+  na_event_code: string | null;
 }
 
 const imageBase = "https://file.truefriend.com/Storage/mobile/event/eventQ";
 
 function EventCard(props: EventCardProps) {
-  const { index, num, title, todate, fromdate, na_view_type } = props;
+  const { index, num, title, todate, fromdate, na_view_type, na_event_summary, na_event_terms, na_event_code } = props;
   // const navigate = useNavigate();
 
   const formatDateFromYYYYMMDD = (dateString: string, formater: string) => {
@@ -37,8 +40,19 @@ function EventCard(props: EventCardProps) {
     // navigate(`/event/${num}`, { state: { title : title, dateRange : createdate } });
     // console.log(num);
 
-    const openData = `${num}◆${title}◆${toDateString} ~ ${fromDateString}◆${na_view_type}◆◆`;
-    console.warn(openData);
+    const getOpenData = () => {
+      const dateString = `${toDateString} ~ ${fromDateString}`
+      if (na_view_type === "01") {
+        return `${num}◆${title}◆${dateString}◆${na_view_type}◆◆`;
+      } else if (na_view_type === "02") {
+        return `${num}◆${title}◆${dateString}◆${na_view_type}◆${na_event_summary}◆${na_event_terms}`;
+      } else if (na_view_type === "03") {
+        return `${na_event_code}◆${title}◆${dateString}◆${na_view_type}◆${na_event_summary}◆${na_event_terms}◆${num}`;
+      } else {
+        return "";
+      }
+    };
+    const openData = getOpenData()
 
     if (window.Android) {
       // Android 네이티브 함수 호출
