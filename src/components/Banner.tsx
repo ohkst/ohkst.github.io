@@ -17,12 +17,12 @@ function Banner({
 
     const handleBannerClick = (destination: string, openData: string) => {
       if (window.Android) {
-        window.Android.moveScreen(destination, openData);
+        window.Android.moveScreen(`${destination}◆${openData}`);
       }
       else if (window.webkit && window.webkit.messageHandlers) {
           // iOS 네이티브 함수 호출
           if (window.webkit.messageHandlers.moveScreen) {
-            window.webkit.messageHandlers.moveScreen.postMessage(destination, openData);
+            window.webkit.messageHandlers.moveScreen.postMessage(`${destination}◆${openData}`);
           }
         } else {
           console.warn(destination);
