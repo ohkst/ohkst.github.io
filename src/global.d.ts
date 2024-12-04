@@ -25,6 +25,9 @@ interface Window {
       moveEventDetail?: {
         postMessage: (message: string) => void;
       };
+      moveScreen?: {
+        postMessage: (message: string) => void;
+      };
       needLogin?: {
         postMessage: (message: string) => void;
       };
