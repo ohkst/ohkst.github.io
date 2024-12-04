@@ -14,15 +14,22 @@ function Banner({
   }: BannerProps) {
     console.log('banner');
 
-    const handleBannerClick = (destination: string) => {
+    const handleBannerClick = () => {
       if (window.Android) {
         window.Android.moveScreen(destination);
+      } else if (window.webkit && window.webkit.messageHandlers) {
+        // iOS 네이티브 함수 호출
+        if (window.webkit.messageHandlers.moveScreen) {
+          window.webkit.messageHandlers.moveScreen.postMessage(destination);
+        }
+      } else {
+        console.warn("Mobile 환경이 아님");
       }
-      };
+    };
 
     return (
       <label>
-        <img className={bannerName} onClick={() => handleBannerClick(destination)} alt=''/>
+        <img className={bannerName} onClick={() => handleBannerClick} alt=''/>
       </label>
     );
   }
