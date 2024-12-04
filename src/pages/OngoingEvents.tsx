@@ -41,7 +41,8 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       console.warn("iOS");
 
       if (window.webkit.messageHandlers.getMobileNoticePopup) {
-        window.webkit.messageHandlers.getMobileNoticePopup.postMessage("");
+        const param = `{able:${9},eventKey:${9},eventDetailKey:${9}}`
+        window.webkit.messageHandlers.getMobileNoticePopup.postMessage(param);
       }
     } else {
       console.warn("Mobile 환경이 아님");
