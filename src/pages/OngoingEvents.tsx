@@ -124,9 +124,8 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
         <Banner
           bannerName={"eventBanner"}
           pagination={0}
-          destination={
-            "4706"
-          }
+          destination={"4706"}
+          openData={"COUPON_OPEN"}
         />
       )}
     </div>
