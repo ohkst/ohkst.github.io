@@ -53,7 +53,7 @@ function Events() {
       {activeTab !== 'benefits' && <Filters filterCategorys={FILTER_CATEGORYS}/>}
       {activeTab === 'ongoing' && <OngoingEvents filterType='전체' filterAvailable='참여가능'/>}
       {activeTab === 'benefits' && <Benefits />}
-      {activeTab === 'ongoing' && <Banner bannerName='eventBanner' pagination={0} destination={"4706"}/>}
+      {activeTab === 'ongoing' && <Banner bannerName='eventBanner' pagination={0} destination={"4706"} openData={"COUPON_OPEN"}/>}
     </div>
   );
 }
