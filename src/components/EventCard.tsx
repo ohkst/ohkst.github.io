@@ -32,8 +32,8 @@ function EventCard(props: EventCardProps) {
   };
 
   const formatter = "yyyy.MM.dd";
-  const toDateString = formatDateFromYYYYMMDD(todate ?? "", formatter);
   const fromDateString = formatDateFromYYYYMMDD(fromdate ?? "", formatter);
+  const toDateString = formatDateFromYYYYMMDD(todate ?? "", formatter);
 
   // "2024.11.27 ~ 2025.01.15"
   const handleClick = () => {
@@ -41,7 +41,7 @@ function EventCard(props: EventCardProps) {
     // console.log(num);
 
     const getOpenData = () => {
-      const dateString = `${toDateString} ~ ${fromDateString}`
+      const dateString = `${fromDateString} ~ ${toDateString}`
       if (na_view_type === "01") {
         return `${num}◆${title}◆${dateString}◆${na_view_type}◆◆`;
       } else if (na_view_type === "02") {
