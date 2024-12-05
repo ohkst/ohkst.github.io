@@ -41,7 +41,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       console.warn("iOS");
 
       if (window.webkit.messageHandlers.getMobileNoticePopup) {
-        const param = `{able:${9},eventKey:${9},eventDetailKey:${9}}`
+        const param = `{\\"able\\":${9},\\"eventKey\\":${9},\\"eventDetailKey\\":${9}}`
         window.webkit.messageHandlers.getMobileNoticePopup.postMessage(param);
       }
     } else {
