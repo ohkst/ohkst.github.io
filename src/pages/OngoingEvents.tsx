@@ -19,7 +19,6 @@ interface OngoingEventsProps {
 }
 
 function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
-  
   const [selectedCategory] = useState("all");
 
   const [eventList, setEventList] = useState<EventListItemType[]>([]);
@@ -29,7 +28,9 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
   const filteredList: EventListItemType[] =
     selectedCategory === "all"
       ? eventList
-      : eventList.filter((event: EventListItemType) => event.na_event_type !== selectedCategory);
+      : eventList.filter(
+          (event: EventListItemType) => event.na_event_type !== selectedCategory
+        );
 
   useEffect(() => {
     if (window.Android) {
@@ -41,7 +42,11 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       console.warn("iOS");
 
       if (window.webkit.messageHandlers.getMobileNoticePopup) {
-        const param = `{\\"able\\":${9},\\"eventKey\\":${9},\\"eventDetailKey\\":${9}}`
+        const param = JSON.stringify({
+          able: 9,
+          eventKey: 9,
+          eventDetailKey: "9",
+        });
         window.webkit.messageHandlers.getMobileNoticePopup.postMessage(param);
       }
     } else {
@@ -105,7 +110,6 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
   return (
     <div className="events">
       {filteredList.map((event: EventListItemType, index) => {
-        
         const props: EventCardProps = {
           index: index,
           num: event.num,
@@ -117,7 +121,7 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
           na_view_type: event.na_view_type,
           na_event_summary: event.na_event_summary,
           na_event_terms: event.na_event_terms,
-          na_event_code: event.na_event_code
+          na_event_code: event.na_event_code,
         };
         return <EventCard key={index} {...props} />;
       })}
