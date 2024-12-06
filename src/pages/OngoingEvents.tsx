@@ -36,7 +36,12 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
     if (window.Android) {
       // Android 네이티브 함수 호출
       console.warn("Android");
-      window.Android.getMobileNoticePopup("");
+      const param = JSON.stringify({
+        eventKey: "1",
+        eventDetailKey: "1",
+        ableChk: "1",
+      });
+      window.Android.getMobileNoticePopup(param);
     } else if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       console.warn("iOS");
