@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
-import backIcon from "../images/ic_navi_back_24.png";
+import backIcon from "../images/ic_navi_back.svg";
 
 function Navbar() {
   const navigate = useNavigate();
