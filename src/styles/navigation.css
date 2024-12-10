@@ -5,9 +5,17 @@ body, html {
 #naviHeader {
   height: 30px;
   background-color: white;
-  padding: 0 5px;
-  margin-top: 15px;
+  padding: 15px 0 0 5px;
   overflow-x: hidden;
+}
+
+#naviHeader.fixed {
+  height: 45px;
+  width: 100vw;
+  z-index: 1;
+  margin-bottom: 30px;
+  padding-top : 15px;
+  position: fixed;
 }
 
 .imgNaviBack {
