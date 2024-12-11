@@ -2,11 +2,13 @@ body, html {
   margin: 0;
   padding: 0;
 }
+
 #naviHeader {
   height: 30px;
   background-color: white;
   padding: 15px 0 0 5px;
   overflow-x: hidden;
+  position: sticky;
 }
 
 #naviHeader.fixed {
