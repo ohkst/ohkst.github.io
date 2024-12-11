@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
 import EventCard, { EventCardProps } from "../components/EventCard";
 import Banner from "../components/Banner";
 import {
@@ -32,32 +31,6 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
           (event: EventListItemType) => event.na_event_type !== selectedCategory
         );
 
-  useEffect(() => {
-    if (window.Android) {
-      // Android 네이티브 함수 호출
-      console.warn("Android");
-      const param = JSON.stringify({
-        eventKey: "1",
-        eventDetailKey: "1",
-        ableChk: "1",
-      });
-      window.Android.getMobileNoticePopup(param);
-    } else if (window.webkit && window.webkit.messageHandlers) {
-      // iOS 네이티브 함수 호출
-      console.warn("iOS");
-
-      if (window.webkit.messageHandlers.getMobileNoticePopup) {
-        const param = JSON.stringify({
-          able: 9,
-          eventKey: 9,
-          eventDetailKey: "9",
-        });
-        window.webkit.messageHandlers.getMobileNoticePopup.postMessage(param);
-      }
-    } else {
-      console.warn("Mobile 환경이 아님");
-    }
-  }, []);
 
   useEffect(() => {
     const handleSroll = () => {
