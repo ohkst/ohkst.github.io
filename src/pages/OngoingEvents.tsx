@@ -31,6 +31,25 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
           (event: EventListItemType) => event.na_event_type !== selectedCategory
         );
 
+  useEffect(() => {
+    const eventListFilterParam = JSON.stringify({
+      able: "0",
+      eventKey: "1",
+      eventDetailKey: "1",
+    });
+
+    if (window.Android) {
+      // Android 네이티브 함수 호출
+      window.Android.getMobileNoticePopup(eventListFilterParam);
+    } else if (window.webkit && window.webkit.messageHandlers) {
+      // iOS 네이티브 함수 호출
+      if (window.webkit.messageHandlers.getMobileNoticePopup) {
+        window.webkit.messageHandlers.getMobileNoticePopup.postMessage(eventListFilterParam);
+      }
+    } else {
+      console.warn("Mobile 환경이 아님");
+    }
+  }, []);
 
   useEffect(() => {
     const handleSroll = () => {
