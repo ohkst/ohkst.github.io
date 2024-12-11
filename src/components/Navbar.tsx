@@ -1,10 +1,28 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import backIcon from "../images/ic_navi_back.svg";
 
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const navbar = document.querySelector("#naviHeader");
+  const [scrollY, setScrollY] = useState(0);
+  const handleFollow = () => {
+    setScrollY(window.scrollY);
+  }
+
+  useEffect(() => {
+    const watch = () => {
+      window.addEventListener('scroll', handleFollow);
+      0 < scrollY ? navbar?.classList.add("fixed") : navbar?.classList.remove("fixed");
+    }
+    watch();
+    return () => {
+      window.removeEventListener('scroll', handleFollow);
+    }
+  })
+  
 
   const handleBackButtonClick = () => {
     if (window.Android) {
