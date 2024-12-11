@@ -52,12 +52,17 @@
   background-color: white;
 }
 
-.filterTab.active {
+.filterTab[data-active="true"] {
   border-color: black;
 }
 
 .filterTab.hover {
   background-color: lightgray;
+}
+
+.filterCount {
+  color: orange;
+  margin-left: 8px;
 }
 
 .popover {

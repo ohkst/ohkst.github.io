@@ -1,124 +1,119 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { EventListFilterInfo } from "../pages/Events";
 import downArrow from "../images/ic_arrow_down_20.png";
-import ButtonGroups from './ButtonGroups';
+import ButtonGroups from "./ButtonGroups";
 
 interface FiltersProps {
-  filterCategorys: {
-    sort_type: string;
-    name: string;
-    value: string[];
-    default_value : string;
-  }[];
+  filterCategorys: EventListFilterInfo[];
+  onFilterChange: (filters: EventListFilterInfo[]) => void;
 }
 
-function Filters({ filterCategorys }: FiltersProps) {
+function Filters({ filterCategorys, onFilterChange }: FiltersProps) {
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [currentFilters, setCurrentFilters] = useState<EventListFilterInfo[]>(filterCategorys);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
-  const [resetCount, setResetCount] = useState(0);
-  const [initBtnVisible, setInitBtnVisible] = useState(false);
-  const [, setFilterCaptions] = useState<{[key: string]: string;}>({});
 
-  const handleFilterClick = (filterType: string) => {
+  const getSelectedFiltersCount = currentFilters.filter(
+    (item) => item.selectedName !== ""
+  ).length;
+
+  const toggleOverlay = (filterType: string) => {
+    setOverlayVisible((prev) => (filterType === activeFilter ? !prev : true));
     setActiveFilter(filterType);
-    setOverlayVisible(!overlayVisible);
-    document.body.style.overflow = 'hidden';
-
   };
-  
-  const updateFilterCaption = (filterType: string, newCaption: string) => {
-    const filterElement = document.getElementById(filterType);
-    if (filterElement){
-      filterElement.innerHTML = (newCaption);
-    }
-    setFilterCaptions((prevCaptions) => {
-      return ({ ...prevCaptions, newCaption });
-      
+
+  const handleOverlayClose = () => {
+    setOverlayVisible(false);
+    setActiveFilter(null);
+  };
+
+  const handleReset = () => {
+    // setCurrentFilters 업데이트
+    setCurrentFilters((prevFilters) => {
+      const updatedFilters = prevFilters.map((filter) => ({ ...filter, selectedName: "" }))
+      onFilterChange(updatedFilters);
+      return updatedFilters;
     });
-   
-    console.log(newCaption);
+
+    setOverlayVisible(false);
+    setActiveFilter(null);
   };
 
+  const handleFilterItemClick = (sortType: string, filterName: string) => {
+    console.log(`Selected filter item: ${filterName}`);
 
-  const handleFilterItemClick = (filterType: string, filterItemName: string, default_value : string) => {
-    setOverlayVisible(false);
-    setResetCount(resetCount+1);
-    switch (activeFilter) {
-      case filterType:
-        if (filterItemName !== default_value) {
-          setActiveFilter(filterType);
-          updateFilterCaption(filterType, filterItemName);
-          setInitBtnVisible(true);
-          console.log(resetCount);
+    const updateFilter = (filter: any) => {
+      if (filter.sortType === sortType) {
+        if (filter.defaultName === filterName) {
+          return { ...filter, selectedName: "" };
+        } else {
+          return { ...filter, selectedName: filterName };
         }
-        else{
-          setActiveFilter('');
-          filterCategorys.map((category) =>
-            updateFilterCaption(category.sort_type, category.name)
-          );
-          setResetCount(resetCount-1);
-        }
-        break;
-      default:
-        break;
+      } else {
+        return filter;
+      }
+    };
+
+    setCurrentFilters((prevFilters) => {
+      const updatedFilters = prevFilters.map((filter) => updateFilter(filter));
+      // 필터 상태 업데이트 후 onFilterChange 호출
+      onFilterChange(updatedFilters);
+      return updatedFilters;
+    });
+
+    handleOverlayClose();
+  };
+
+  useEffect(() => {
+    if (!overlayVisible) {
+      setActiveFilter(null);
     }
-  };
-  const handleOverlayClick = () => {
-    setOverlayVisible(false);
-    document.body.style.overflow = 'auto';
-  };
-
-  const handleInitBtnClick = () => {
-    setOverlayVisible(false);
-    document.body.style.overflow = 'auto';
-    setResetCount(0);
-    filterCategorys.map((category) =>
-      updateFilterCaption(category.sort_type, category.name)
-    
-    );
-    setInitBtnVisible(false);
-  };
+  }, [overlayVisible])
 
   return (
     <div className="filterWrap">
-      {initBtnVisible && <span className= "initBtn" onClick={() => handleInitBtnClick()} >초기화
-        <span style={{color : resetCount > 0 ? 'orange' : 'black'}}>{resetCount}</span>
-        </span>}
+      {/* 초기화 */}
+      {getSelectedFiltersCount > 0 && (
+        <span className={"filterTab"} onClick={() => handleReset()}>
+          <span> {"초기화"} </span>
+          <span className="filterCount">{getSelectedFiltersCount}</span>
+        </span>
+      )}
 
-      {filterCategorys.map((category, index) => (
+      {/* 필터 버튼 */}
+      {currentFilters.map((filter, index) => (
         <span
           key={index}
-          id = {category.sort_type}
-          className={activeFilter === category.sort_type ? "clickedfilterTab" : "filterTab"}
-          onClick={() => handleFilterClick(category.sort_type)}>
-          {category.name}
-          <span><img
-            id="filterArrowDown"
-            src={downArrow}
-            alt="filter"
-          /></span>
-          
+          className="filterTab"
+          data-active={
+            activeFilter === filter.sortType || filter.selectedName !== ""
+          }
+          onClick={() => toggleOverlay(filter.sortType)}
+        >
+          {filter.selectedName === ""
+            ? filter.defaultDisplayName
+            : filter.selectedName}
+          <span>
+            <img src={downArrow} alt="filter" />
+          </span>
         </span>
-        
       ))}
-      
-      {overlayVisible && activeFilter&&(
-        <div className="overlay" onClick={handleOverlayClick}>
+
+      {/* 필터 버튼들 */}
+      {overlayVisible && activeFilter && (
+        <div className="overlay" onClick={handleOverlayClose}>
           <ButtonGroups
+            sortType={activeFilter}
             buttons={
-              activeFilter === filterCategorys[0].sort_type
-                ? filterCategorys[0].value
-                : filterCategorys[1].value
+              filterCategorys.find((filter) => filter.sortType === activeFilter)
+                ?.value || {}
             }
-            onButtonClick={(filterItem) =>
-              handleFilterItemClick(activeFilter, filterItem, activeFilter === filterCategorys[0].sort_type
-                ? filterCategorys[0].default_value
-                : filterCategorys[1].default_value )
-            }
+            onButtonClick={handleFilterItemClick}
           />
         </div>
       )}
     </div>
-    );
-  }
+  );
+}
 
 export default Filters;
