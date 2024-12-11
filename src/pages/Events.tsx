@@ -73,16 +73,16 @@ function Events() {
     
     if (!filterInfoList || filterInfoList.length === 0) return ;
 
+    const ableFilter = getFilterInfo("available");
+    const ableSelectedKey = ableFilter?.selectedName ?? "참여가능";
+
     const typeFilter = getFilterInfo("type");
     const typeSelectedKey = typeFilter?.selectedName ?? "전체";
-
-    const availableFilter = getFilterInfo("available");
-    const availableSelectedKey = availableFilter?.selectedName ?? "참여가능";
     
     const eventListFilterParam = JSON.stringify({
-      able: availableSelectedKey === "전체" ? "1" : "0",
-      eventKey: typeFilter?.value[typeSelectedKey] ?? "1",
-      eventDetailKey: availableFilter?.value[availableSelectedKey] ?? "1",
+      able: ableSelectedKey === "전체" ? "1" : "",
+      eventTypeIndex: typeFilter?.value[typeSelectedKey] ?? "1",
+      eventAbleIndex: ableFilter?.value[ableSelectedKey] ?? "1"
     });
 
     console.log(eventListFilterParam);

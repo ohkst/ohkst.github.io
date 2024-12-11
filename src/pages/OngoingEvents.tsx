@@ -33,9 +33,9 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
 
   useEffect(() => {
     const eventListFilterParam = JSON.stringify({
-      able: "0",
-      eventKey: "1",
-      eventDetailKey: "1",
+      able: "",
+      eventTypeIndex: "1",
+      eventAbleIndex: "1"
     });
 
     if (window.Android) {
