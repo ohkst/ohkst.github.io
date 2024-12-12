@@ -102,6 +102,30 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
         console.error("JSON 파싱 오류:", error);
       }
     };
+
+    // 네이티브에서 React로 데이터를 전달받는 함수
+    window.onAppToEventScheme = (message: string) => {
+      console.log("네이티브에서 전달받은 메시지:", message);
+      
+      const eventListFilterParam = JSON.stringify({
+        able: "",
+        eventTypeIndex: "2",
+        eventAbleIndex: "1"
+      });
+  
+      if (window.Android) {
+        // Android 네이티브 함수 호출
+        window.Android.getMobileNoticePopup(eventListFilterParam);
+      } else if (window.webkit && window.webkit.messageHandlers) {
+        // iOS 네이티브 함수 호출
+        if (window.webkit.messageHandlers.getMobileNoticePopup) {
+          window.webkit.messageHandlers.getMobileNoticePopup.postMessage(eventListFilterParam);
+        }
+      } else {
+        console.warn("Mobile 환경이 아님");
+      }
+    };
+    
   }, []);
 
   return (
