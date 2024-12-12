@@ -57,4 +57,5 @@ interface Window {
   };
 
   onNativeMessage?: (message: string) => void;
+  onAppToEventScheme?: (message: string) => void;
 }
