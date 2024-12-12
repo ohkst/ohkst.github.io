@@ -32,6 +32,10 @@ interface Window {
         postMessage: (message: string) => void;
       };
 
+      getSchemeOpenData?: {
+        postMessage: (message: string) => void;
+      };
+
       getAccountAlias?: {
         postMessage: (message: string) => void;
       };

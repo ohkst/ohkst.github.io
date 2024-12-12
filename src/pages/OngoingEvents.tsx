@@ -43,8 +43,8 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       window.Android.getMobileNoticePopup(eventListFilterParam);
     } else if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
-      if (window.webkit.messageHandlers.getMobileNoticePopup) {
-        window.webkit.messageHandlers.getMobileNoticePopup.postMessage(eventListFilterParam);
+      if (window.webkit.messageHandlers.getSchemeOpenData) {
+        window.webkit.messageHandlers.getSchemeOpenData.postMessage("");
       }
     } else {
       console.warn("Mobile 환경이 아님");
