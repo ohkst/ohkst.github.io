@@ -75,10 +75,11 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
       console.log("네이티브에서 전달받은 메시지:", message);
 
       const filterTypeInfo: Record<string, string> = {
-        INTERNAL: "1",
-        OVERSEAS: "2",
-        FINANCIAL: "3",
-        ETC: "4",
+        ALL: "1",
+        INTERNAL: "2",
+        OVERSEAS: "3",
+        FINANCIAL: "4",
+        ETC: "5",
       };
 
       const eventTypeIndex = filterTypeInfo[message] || "1"

@@ -70,6 +70,12 @@ function Filters({ filterCategorys, onFilterChange }: FiltersProps) {
     }
   }, [overlayVisible])
 
+  // 네이티브에서 오픈데이터 스킴데이터를 가지고 최초 필터를 설정하여 리스트 정보 요청
+  window.onAppToEventScheme = (message: string) => {
+    console.log("FILTER 네이티브에서 전달받은 메시지:", message);
+
+  };
+
   return (
     <div className="filterWrap">
       {/* 초기화 */}
