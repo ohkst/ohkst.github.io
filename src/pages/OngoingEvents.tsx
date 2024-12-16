@@ -32,15 +32,11 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
         );
 
   useEffect(() => {
-    const eventListFilterParam = JSON.stringify({
-      able: "",
-      eventTypeIndex: "1",
-      eventAbleIndex: "1"
-    });
-
+    // 최초 리스트 필터를 확인하기 위해 호출
+    // 오픈형태 요청 -> 필터 결정 -> 리스트 호출 순
     if (window.Android) {
       // Android 네이티브 함수 호출
-      window.Android.getMobileNoticePopup(eventListFilterParam);
+      window.Android.getSchemeOpenData("");
     } else if (window.webkit && window.webkit.messageHandlers) {
       // iOS 네이티브 함수 호출
       if (window.webkit.messageHandlers.getSchemeOpenData) {
@@ -74,7 +70,41 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
     } as const;
     type ModelKey = keyof typeof modelMapping; // 키 타입 추출
 
-    // 네이티브에서 React로 데이터를 전달받는 함수
+    // 네이티브에서 오픈데이터 스킴데이터를 가지고 최초 필터를 설정하여 리스트 정보 요청
+    window.onAppToEventScheme = (message: string) => {
+      console.log("네이티브에서 전달받은 메시지:", message);
+
+      const filterTypeInfo: Record<string, string> = {
+        INTERNAL: "1",
+        OVERSEAS: "2",
+        FINANCIAL: "3",
+        ETC: "4",
+      };
+
+      const eventTypeIndex = filterTypeInfo[message] || "1"
+
+      const eventListFilterParam = JSON.stringify({
+        able: "",
+        eventTypeIndex: eventTypeIndex,
+        eventAbleIndex: "1",
+      });
+
+      if (window.Android) {
+        // Android 네이티브 함수 호출
+        window.Android.getMobileNoticePopup(eventListFilterParam);
+      } else if (window.webkit && window.webkit.messageHandlers) {
+        // iOS 네이티브 함수 호출
+        if (window.webkit.messageHandlers.getMobileNoticePopup) {
+          window.webkit.messageHandlers.getMobileNoticePopup.postMessage(
+            eventListFilterParam
+          );
+        }
+      } else {
+        console.warn("Mobile 환경이 아님");
+      }
+    };
+
+    // 네이티브에서 TR 결과를 전달
     window.onNativeMessage = (message: string) => {
       console.log("네이티브에서 전달받은 메시지:", message);
 
@@ -102,30 +132,6 @@ function OngoingEvents({ filterType, filterAvailable }: OngoingEventsProps) {
         console.error("JSON 파싱 오류:", error);
       }
     };
-
-    // 네이티브에서 React로 데이터를 전달받는 함수
-    window.onAppToEventScheme = (message: string) => {
-      console.log("네이티브에서 전달받은 메시지:", message);
-      
-      const eventListFilterParam = JSON.stringify({
-        able: "",
-        eventTypeIndex: "2",
-        eventAbleIndex: "1"
-      });
-  
-      if (window.Android) {
-        // Android 네이티브 함수 호출
-        window.Android.getMobileNoticePopup(eventListFilterParam);
-      } else if (window.webkit && window.webkit.messageHandlers) {
-        // iOS 네이티브 함수 호출
-        if (window.webkit.messageHandlers.getMobileNoticePopup) {
-          window.webkit.messageHandlers.getMobileNoticePopup.postMessage(eventListFilterParam);
-        }
-      } else {
-        console.warn("Mobile 환경이 아님");
-      }
-    };
-    
   }, []);
 
   return (

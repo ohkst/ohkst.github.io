@@ -5,6 +5,7 @@ interface Window {
     moveEventDetail: (message: string) => void;
     moveScreen: (message: string) => void;
     needLogin: (message: string) => void;
+    getSchemeOpenData: (message: string) => void;
     getAccountAlias: (message: string) => void;
     getAppNoticeList: (message: string) => void;
     getMobileNoticePopup: (message: string) => void;
