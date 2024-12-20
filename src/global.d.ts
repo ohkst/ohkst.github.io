@@ -2,6 +2,8 @@ interface Window {
   // Android
   Android?: {
     back: (message: string) => void;
+    showToast: (message: string) => void;
+    moveFormDePopup: (message: string) => void;
     moveEventDetail: (message: string) => void;
     moveScreen: (message: string) => void;
     needLogin: (message: string) => void;
@@ -22,6 +24,12 @@ interface Window {
         postMessage: (message: string) => void;
         // showAlert: (title: string, message: string) => void; // 새로운 알림 기능
         // getBatteryStatus: () => Promise<number>; // 배터리 상태 가져오기
+      };
+      showToast?: {
+        postMessage: (message: string) => void;
+      };
+      moveFormDePopup?: {
+        postMessage: (message: string) => void;
       };
       moveEventDetail?: {
         postMessage: (message: string) => void;
