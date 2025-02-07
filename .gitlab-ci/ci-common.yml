@@ -1,0 +1,69 @@
+variables:
+  RUNNER: "mts-react-web"
+  TIME_ZONE: Asia/Seoul
+  ECR_LOGIN_URL: https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.6.0/linux-amd64/docker-credential-ecr-login
+  JDK_IMAGE: 687187039916.dkr.ecr.ap-northeast-2.amazonaws.com/amazoncorretto:21-alpine-jdk-appuser
+  DOCKER_GIT_CI_IMAGE: 606881785502.dkr.ecr.ap-northeast-2.amazonaws.com/aws-cli:terraform-v1.3.5
+  DOCKER_IMAGE: docker:20.10.17
+  IMAGE_NAME: mts-react-web
+  DOCKER_KUBECTL_IMAGE: '687187039916.dkr.ecr.ap-northeast-2.amazonaws.com/gitlab-ci:kubectl'
+
+.before_script:
+  gradle:
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - java -version
+
+  aws-credentials:
+    - aws_credentials=$(aws sts assume-role --role-arn "$ASSUME_ROLE_ARN" --role-session-name "$RUNNER" --duration-seconds 3600 --output json)
+    - echo "AWS_ACCESS_KEY_ID=$(echo $aws_credentials|jq '.Credentials.AccessKeyId'|tr -d '"')" > credentials.env
+    - echo "AWS_SECRET_ACCESS_KEY=$(echo $aws_credentials|jq '.Credentials.SecretAccessKey'|tr -d '"')" >> credentials.env
+    - echo "AWS_SESSION_TOKEN=$(echo $aws_credentials|jq '.Credentials.SessionToken'|tr -d '"')" >> credentials.env
+
+  argocd-variables:
+    - >
+      if [[ "$CI_COMMIT_BRANCH" == feature/* ]]; then
+        export LOWER_BRANCH_NAME=$(echo "${CI_COMMIT_REF_NAME#feature/}" | tr '[:upper:]' '[:lower:]')
+      elif [[ "$CI_COMMIT_BRANCH" =~ dev/* ]]; then
+        export LOWER_BRANCH_NAME=$(echo "${CI_COMMIT_REF_NAME#dev/}" | tr '[:upper:]' '[:lower:]')
+      else
+        echo "Branch name does not start with 'feature/' or 'dev/'"
+        exit 1
+      fi
+    - echo $LOWER_BRANCH_NAME
+    - export APP_ENV=dev
+    - export ARGOCD_TEMPLATES_DIR=$ARGOCD_TEMPLATES_DIR
+
+.rule:
+  feature-branch-push-and-merge-request-event:
+    - if: $CI_COMMIT_REF_NAME =~ /^feature/ && $CI_PIPELINE_SOURCE == "merge_request_event"
+      variables:
+        IMAGE_TAG: "${CI_COMMIT_REF_SLUG}"
+
+  main-branch-push:
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"
+      variables:
+        IMAGE_TAG: "latest"
+
+  release-branch-push:
+    - if: $CI_COMMIT_REF_NAME =~ /^release/ && $CI_PIPELINE_SOURCE == "push"
+      variables:
+        IMAGE_TAG: "${CI_COMMIT_REF_SLUG}"
+
+  dev-branch-push:
+    - if: $CI_COMMIT_REF_NAME =~ /^dev/ && $CI_PIPELINE_SOURCE == "push"
+      variables:
+        IMAGE_TAG: "${CI_COMMIT_REF_SLUG}"
+
+  tag-created:
+    - if: $CI_COMMIT_TAG
+      variables:
+        IMAGE_TAG: "${CI_COMMIT_TAG}"
+
+  rule-security-analyze:
+    - if: $CI_SECURITY == "true"
+
+  rule-image-scan:
+    - if: $CI_IMAGE_SCAN == "true"
+
+  rule-argocd-deploy:
+    - if: $CI_ARGOCD == "true"

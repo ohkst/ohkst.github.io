@@ -1,0 +1,6 @@
+variables:
+  DEV_ECR_REGISTRY: 331211426240.dkr.ecr.ap-northeast-2.amazonaws.com
+  REGISTRY_PATH: /s2/mts
+
+  AQUA_HOST: https://cwpp-d.koreainvestment.com
+  AQUA_USER: cicdscanner

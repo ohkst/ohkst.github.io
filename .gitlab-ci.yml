@@ -1,0 +1,7 @@
+include:
+  - local: .gitlab-ci/dev-gitlab.yml
+    rules:
+      - if: $CI_SERVER_HOST == "dev-gitlab.kis.zone"
+  - local: .gitlab-ci/test-gitlab.yml
+    rules:
+      - if: $CI_SERVER_HOST == "test-gitlab.kis.zone"

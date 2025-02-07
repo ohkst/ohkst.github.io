@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: $LOWER_BRANCH_NAME
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+  - list:
+      elements:
+      - name: $LOWER_BRANCH_NAME
+        project: $APP_ENV-mts
+        server: https://203722F654A4E2676215EDC83AA257ED.gr7.ap-northeast-2.eks.amazonaws.com
+        namespace: $LOWER_BRANCH_NAME
+        targetRevision: ${CI_COMMIT_REF_NAME}
+  template:
+    metadata:
+      name: '{{name}}'
+    spec:
+      project: '{{project}}'
+      source:
+        repoURL: https://$APP_ENV-gitlab.kis.zone/c2/mts_web_react.git
+        path: $ARGOCD_TEMPLATES_DIR
+        targetRevision: '{{targetRevision}}'
+        helm:
+          valueFiles:
+            - values-$APP_ENV.yaml
+      destination:
+        server: '{{server}}'
+        namespace: '{{namespace}}'
