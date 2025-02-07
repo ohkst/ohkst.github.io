@@ -1,17 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.ecdf9bc1.css",
-    "main.js": "/static/js/main.c59f845d.js",
-    "static/media/img_bankis_benefit_bg.png": "/static/media/img_bankis_benefit_bg.bdb10af6aedc913f267d.png",
+    "main.css": "/static/css/main.5f9aba82.css",
+    "main.js": "/static/js/main.50802dfd.js",
     "static/media/domestic_ms_event_2301.pdf": "/static/media/domestic_ms_event_2301.5483e66b85a76d304da0.pdf",
-    "static/media/img_event_banner_coupon.png": "/static/media/img_event_banner_coupon.bc23774a1046ccf3c1f7.png",
     "index.html": "/index.html",
     "static/media/ic_navi_back.svg": "/static/media/ic_navi_back.0f2640f8c0ddfe57d04b83374b3c5f63.svg",
-    "main.ecdf9bc1.css.map": "/static/css/main.ecdf9bc1.css.map",
-    "main.c59f845d.js.map": "/static/js/main.c59f845d.js.map"
+    "main.5f9aba82.css.map": "/static/css/main.5f9aba82.css.map",
+    "main.50802dfd.js.map": "/static/js/main.50802dfd.js.map"
   },
   "entrypoints": [
-    "static/css/main.ecdf9bc1.css",
-    "static/js/main.c59f845d.js"
+    "static/css/main.5f9aba82.css",
+    "static/js/main.50802dfd.js"
   ]
 }
